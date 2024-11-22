@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class TableCategory extends Migration
+class TypeShowing extends Migration
 {
     public function up()
     {
@@ -14,23 +14,19 @@ class TableCategory extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
                 'auto_increment' => true,
+
             ],
             'name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
-            'slug' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-                'unique'     => true,
+                'type' => 'VARCHAR',
+                'constraint' => 255,
             ],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('category_movie');
+        $this->forge->createTable('type_showing');
     }
 
     public function down()
     {
-        $this->forge->dropTable('category_movie');
+      $this->forge->dropTable('type_showing');
     }
 }
