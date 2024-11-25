@@ -7,6 +7,7 @@
                         <?= isset($utilisateur) ? "Editer " . $utilisateur['username'] : "Créer un utilisateur" ?>
                     </h4>
                     <?php
+                    if (isset($utilisateur)) {
                     if (isset($utilisateur) && $utilisateur['deleted_at'] == null) { ?>
                         <a title="Désactiver l'utilisateur" href="<?= base_url('admin/user/deactivate/') . $utilisateur['id']; ?>">
                             <i class="fa-solid fa-xl fa-toggle-on text-success"></i>
@@ -17,6 +18,7 @@
                             <i class="fa-solid fa-toggle-off fa-xl text-danger"></i>
                         </a>
                     <?php
+                    }
                     }
                     ?>
                 </div>
@@ -40,8 +42,20 @@
                                 <input type="text" class="form-control" id="username" placeholder="username" value="<?= isset($utilisateur) ? $utilisateur['username'] : ""; ?>" name="username">
                             </div>
                             <div class="mb-3">
-                                <label for="mail" class="form-label">E-mail</label>
-                                <input type="text" class="form-control" id="mail" placeholder="mail" value="<?= isset($utilisateur) ? $utilisateur['email'] : "" ?>" <?= isset($utilisateur) ? "readonly" : "" ?> >
+                                <label for="firstname" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="firstname" placeholder="firstname" value="<?= isset($utilisateur) ? $utilisateur['firstname'] : ""; ?>" name="firstname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="name" placeholder="name" value="<?= isset($utilisateur) ? $utilisateur['name'] : ""; ?>" name="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="text" class="form-control" id="email" placeholder="mail" value="<?= isset($utilisateur) ? $utilisateur['email'] : "" ?>" <?= isset($utilisateur) ? "readonly" : "" ?> >
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Tel</label>
+                                <input type="text" class="form-control" id="phone" placeholder="phone" value="<?= isset($utilisateur) ? $utilisateur['phone'] : "" ?>" <?= isset($utilisateur) ? "readonly" : "" ?> >
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Mot de passe</label>

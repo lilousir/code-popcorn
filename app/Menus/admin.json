@@ -6,6 +6,33 @@
     "icon": "<i class=\"nav-icon fa-solid fa-house\"></i>",
     "class": "main-menu-accueil"
   },
+  "movie": {
+    "title": "Cinéma",
+    "url": "/movie",
+    "perm": "none",
+    "icon": "<i class=\"nav-icon fa-solid fa-clapperboard\"></i>",
+    "class": "main-menu-movie",
+    "subs": {
+      "Cinema": {
+        "title": "Cinéma",
+        "url": "admin/cinema",
+        "icon": "<i class=\"nav-icon fa-solid fa-video\"></i>"
+      },
+      "movie": {
+        "title": "Film",
+        "url": "/",
+        "perm": "none",
+        "icon": "<i class=\"nav-icon fa-solid fa-film\"></i>"
+      },
+      "ticket": {
+        "title": "Ticket",
+        "url": "/",
+        "perm": "none",
+        "icon": "<i class=\"nav-icon fa-solid fa-ticket\"></i>"
+
+      }
+    }
+  },
   "produits": {
     "title": "Options",
     "url": "/user",

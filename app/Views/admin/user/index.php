@@ -9,8 +9,12 @@
             <tr>
                 <th>ID</th>
                 <th>Avatar</th>
+                <th>Prénom</th>
+                <th>Nom</th>
                 <th>Username</th>
                 <th>Mail</th>
+                <th>Tel</th>
+                <th>Dob</th>
                 <th>Rôle</th>
                 <th>Modifier</th>
                 <th>Actif</th>
@@ -52,8 +56,12 @@
                             }
                         }
                     },
+                    {"data": "firstname"},
+                    {"data": "name"},
                     {"data": "username"},
                     {"data": "email"},
+                    {"data": "phone"},
+                    {"data": "dob"},
                     {"data": "permission_name"},
                     {
                         data : 'id',
