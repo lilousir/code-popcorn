@@ -3,32 +3,32 @@
     "title": "Accueil",
     "url": "/admin",
     "perm": "none",
-    "icon": "<i class=\"nav-icon fa-solid fa-house\"></i>",
+    "icon": "<i class=\"nav-icon fa-solid fa-house\" style=\"color: #0c256e;\"></i>",
     "class": "main-menu-accueil"
   },
   "movie": {
     "title": "Cinéma",
     "url": "/movie",
     "perm": "none",
-    "icon": "<i class=\"nav-icon fa-solid fa-clapperboard\"></i>",
+    "icon": "<i class=\"nav-icon fa-solid fa-clapperboard\" style=\"color: #0c256e;\"></i>",
     "class": "main-menu-movie",
     "subs": {
       "Cinema": {
         "title": "Cinéma",
         "url": "admin/cinema",
-        "icon": "<i class=\"nav-icon fa-solid fa-video\"></i>"
+        "icon": "<i class=\"nav-icon fa-solid fa-video\" style=\"color: #0c256e;\"></i>"
       },
       "movie": {
         "title": "Film",
-        "url": "/",
+        "url": "admin/movie",
         "perm": "none",
-        "icon": "<i class=\"nav-icon fa-solid fa-film\"></i>"
+        "icon": "<i class=\"nav-icon fa-solid fa-film\" style=\"color: #0c256e;\"></i>"
       },
       "ticket": {
         "title": "Ticket",
-        "url": "/",
+        "url": "admin/ticket",
         "perm": "none",
-        "icon": "<i class=\"nav-icon fa-solid fa-ticket\"></i>"
+        "icon": "<i class=\"nav-icon fa-solid fa-ticket fa-rotate-180\" style=\"color: #0c256e;\"></i>"
 
       }
     }
@@ -37,18 +37,18 @@
     "title": "Options",
     "url": "/user",
     "perm": "none",
-    "icon": "<i class=\"nav-icon fa-solid fa-gear\"></i>",
+    "icon": "<i class=\"nav-icon fa-solid fa-gear\" style=\"color: #0c256e;\"></i>",
     "class": "",
     "subs": {
       "user": {
         "title": "Utilisateur",
         "url": "/admin/user",
-        "icon": "<i class=\"nav-icon fa-solid fa-users\"></i>"
+        "icon": "<i class=\"nav-icon fa-solid fa-users\" style=\"color: #0c256e;\"></i>"
       },
       "userpermission": {
         "title": "Permissions",
         "url": "/admin/userpermission",
-        "icon": "<i class=\"nav-icon fa-solid fa-user-gear\"></i>"
+        "icon": "<i class=\"nav-icon fa-solid fa-user-gear\" style=\"color: #0c256e;\"></i>"
       }
     }
   }

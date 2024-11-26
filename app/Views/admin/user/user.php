@@ -30,7 +30,7 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="onglet-tab" data-bs-toggle="tab"
                                     data-bs-target="#onglet" type="button" role="tab" aria-controls="onglet"
-                                    aria-selected="false">ONGLET</button>
+                                    aria-selected="false">Image</button>
                         </li>
                     </ul>
 
@@ -51,11 +51,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">E-mail</label>
-                                <input type="text" class="form-control" id="email" placeholder="mail" value="<?= isset($utilisateur) ? $utilisateur['email'] : "" ?>" <?= isset($utilisateur) ? "readonly" : "" ?> >
+                                <input type="text" class="form-control" id="email" placeholder="email" value="<?= isset($utilisateur) ? $utilisateur['email'] : "" ?>" name="email" >
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Tel</label>
-                                <input type="text" class="form-control" id="phone" placeholder="phone" value="<?= isset($utilisateur) ? $utilisateur['phone'] : "" ?>" <?= isset($utilisateur) ? "readonly" : "" ?> >
+                                <input type="text" class="form-control" id="phone" placeholder="phone" value="<?= isset($utilisateur) ? $utilisateur['phone'] : "" ?>" name="phone">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Mot de passe</label>

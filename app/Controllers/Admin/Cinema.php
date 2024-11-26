@@ -35,7 +35,7 @@ class Cinema extends BaseController
             if ($cinema) {
                 // Ajoute un breadcrumb pour indiquer la modification du cinéma
                 $this->addBreadcrumb('Modification de ' . $cinema['name'], '');
-
+                return $this->view("/admin/cinema/cinema", ["cinema" => $cinema], true);
 
             } else {
                 // Si le cinéma avec cet ID n'existe pas, affiche un message d'erreur
@@ -95,6 +95,7 @@ class Cinema extends BaseController
         // Obtenez le nombre total de lignes filtrées pour la recherche
         $filteredRecords = $CinemaModel->getFilteredCinema($searchValue);
 
+
         $result = [
             'draw'            => $draw,
             'recordsTotal'    => $totalRecords,
@@ -103,6 +104,5 @@ class Cinema extends BaseController
         ];
         return $this->response->setJSON($result);
     }
-
 
 }

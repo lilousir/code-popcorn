@@ -18,6 +18,11 @@ class TableUser extends Migration
            'firstname' => [
                'type' => 'VARCHAR',
                'constraint' => '100',
+           ],
+
+           'username' => [
+               'type' => 'VARCHAR',
+               'constraint' => '100',
 
            ],
             'name' => [
@@ -41,11 +46,7 @@ class TableUser extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'id_city' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-            ],
+
             'id_permission' => [
                 'type'       => 'INT',
                 'constraint' => 11,
@@ -66,7 +67,7 @@ class TableUser extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_city', 'city', 'id', 'CASCADE', 'CASCADE');
+
         $this->forge->createTable('user');
     }
 

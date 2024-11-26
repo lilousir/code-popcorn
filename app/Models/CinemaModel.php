@@ -28,13 +28,13 @@ class CinemaModel extends Model
     {
         $builder = $this->builder();
         $builder->join('city', 'theater.id_city = city.id', 'left'); // Jointure avec la table city
-        $builder->select('theater.*, city.name as city_name'); // Sélectionner les champs nécessaires
+        $builder->select('theater.*, city.label'); // Sélectionner les champs nécessaires
 
         // Recherche
         if (!empty($searchValue)) {
             $builder->like('theater.name', $searchValue);
             $builder->orLike('theater.email', $searchValue);
-            $builder->orLike('city.name', $searchValue);
+            $builder->orLike('city.label', $searchValue);
         }
 
         // Tri
@@ -58,16 +58,17 @@ class CinemaModel extends Model
     {
         $builder = $this->builder();
         $builder->join('city', 'theater.id_city = city.id', 'left'); // Jointure avec la table city
-        $builder->select('theater.*, city.name as city_name'); // Sélectionner les champs nécessaires
+        $builder->select('theater.*, city.label'); // Sélectionner les champs nécessaires
 
 
         // Filtrage
         if (!empty($searchValue)) {
             $builder->like('theater.name', $searchValue);
             $builder->orLike('theater.email', $searchValue);
-            $builder->orLike('city.name', $searchValue);
+            $builder->orLike('city.label', $searchValue);
         }
 
         return $builder->countAllResults();
     }
+
 }

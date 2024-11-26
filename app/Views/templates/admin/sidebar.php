@@ -1,13 +1,13 @@
-<div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
+<div class="sidebar sidebar-dark sidebar-fixed border-end bg-warning" id="sidebar">
     <div class="sidebar-header border-bottom">
         <div class="sidebar-brand">
-            <a href="<?= base_url('/admin'); ?>"><img src="<?= base_url('/assets/brand/logo-blanc.svg'); ?>" class="sidebar-brand-full" _width="88"
-            height="32"
+            <a href="<?= base_url('/admin'); ?>"><img src="<?= base_url('/assets/brand/logo1.PNG'); ?>" class="sidebar-brand-full" _width="88"
+            height="50"
             alt="Mon Projet" /></a>
             <a href="<?= base_url('/admin'); ?>"><img src="<?= base_url('/assets/brand/logo-blanc.svg'); ?>" class="sidebar-brand-narrow" _width="32"
                  height="32"
                  alt="Mon Projet" /></a>
-            Mon Projet
+            Code-PopCorn
         </div>
         <a href="<?= base_url(); ?>" target="_blank" class="header-toggler" alt="Voir le site" title="Voir le site"><i class="fa-solid fa-house-laptop"></i></a>
     </div>
