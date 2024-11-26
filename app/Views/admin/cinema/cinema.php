@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">
-                        <?= isset($cinema) ? "Editer " . $cinema['username'] : "Créer un cinema" ?>
+                        <?= isset($cinema) ? "Editer " . $cinema['name'] : "Créer un cinema" ?>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -39,17 +39,14 @@
                                 <label for="email" class="form-label">email</label>
                                 <input type="email" class="form-control" id="email" placeholder="email" value="" name="email">
                             </div>
-                            <div class="mb-3">
-                                <label for="id_city" class="form-label">Ville</label>
-                                <select class="form-select" id="id_city" name="id_city">
-                                    <option disabled <?= !isset($city) ? "selected":""; ?> >Selectioner une ville</option>
-                                    <?php foreach($city as $c): ?>
-                                        <option value="<?= $c['id']; ?>" <?= ( isset($cinema) && $c['id'] == $cinema['id_city']) ? "selected" : "" ?> >
-                                            <?= $c['name']; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+<!--                            <div class="mb-3 position-relative">-->
+<!--                                <label for="city-search" class="form-label">Rechercher une ville</label>-->
+<!--                                <input type="text" id="city-search" class="form-control" placeholder="Rechercher une ville" autocomplete="on">-->
+<!--                                <!-- Champ caché pour l'ID de la ville -->-->
+<!--                                <input type="hidden" id="city-id" name="id_city">-->
+<!--                                <!-- Liste déroulante des résultats -->-->
+<!--                                <div id="search-results" class="list-group position-absolute w-100" style="max-height: 200px; overflow-y: auto; z-index: 10;"></div>-->
+<!--                            </div>-->
 
 
                             </div>

@@ -19,4 +19,11 @@ class CityModel extends Model
     {
         return $this->findAll();
     }
+    public function searchCityByName($searchValue, $limit = 10)
+    {
+        return $this->select('id, label') // Assure-toi d'utiliser 'name' ici
+        ->like('label', $searchValue)  // Recherche dans le champ 'name'
+        ->limit($limit)               // Limiter à 10 résultats par défaut
+        ->findAll();
+    }
 }
