@@ -39,19 +39,11 @@
                                 <label for="email" class="form-label">email</label>
                                 <input type="email" class="form-control" id="email" placeholder="email" value="" name="email">
                             </div>
-<!--                            <div class="mb-3 position-relative">-->
-<!--                                <label for="city-search" class="form-label">Rechercher une ville</label>-->
-<!--                                <input type="text" id="city-search" class="form-control" placeholder="Rechercher une ville" autocomplete="on">-->
-<!--                                <!-- Champ caché pour l'ID de la ville -->-->
-<!--                                <input type="hidden" id="city-id" name="id_city">-->
-<!--                                <!-- Liste déroulante des résultats -->-->
-<!--                                <div id="search-results" class="list-group position-absolute w-100" style="max-height: 200px; overflow-y: auto; z-index: 10;"></div>-->
-<!--                            </div>-->
-
+                            <label for="city" class="form-label">ville</label>
+                            <select id="search-city-head" class="form-control me-2" name="city"></select>
 
                             </div>
                         </div>
-
                         <div class="tab-pane" id="onglet" role="tabpanel" aria-labelledby="onglet-tab" tabindex="0">
 
                         </div>

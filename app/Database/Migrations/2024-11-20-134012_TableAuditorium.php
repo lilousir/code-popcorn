@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Auditorium extends Migration
+class TableAuditorium extends Migration
 {
     public function up()
     {
@@ -17,20 +17,24 @@ class Auditorium extends Migration
             ],
             'name' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 50,
             ],
             'capacity' => [
                 'type' => 'INT',
                 'constraint' => 11,
             ],
-            'id_theater' => [
+            'theater_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-            ]
+            ],
+            'deleted_at' => [
+                'type'       => 'DATETIME',
+                'null'       => true,
+            ],
         ]);
-        $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_theater', 'theater', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addPrimaryKey('id');
+        $this->forge->addForeignKey('theater_id', 'theater', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('auditorium');
     }
 
