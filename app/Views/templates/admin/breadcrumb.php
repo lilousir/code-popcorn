@@ -49,8 +49,6 @@
         <div class="container-fluid px-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb my-0">
-                    <li class="breadcrumb-item"><span><a class="link-underline link-underline-opacity-0" href="home"</span>
-                    </li>
                     <?php foreach ($breadcrumb as $bitem) { ?>
                         <li class="breadcrumb-item">
                             <?php if ($bitem['url'] !== "") { ?>

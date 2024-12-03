@@ -26,11 +26,11 @@ class TableCategory extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('category_movie');
+        $this->forge->createTable('category');
     }
 
     public function down()
     {
-        $this->forge->dropTable('category_movie');
+        $this->forge->dropTable('category');
     }
 }

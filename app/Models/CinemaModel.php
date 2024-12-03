@@ -23,6 +23,10 @@ class CinemaModel extends Model
         return $this->insert($data);
     }
 
+    public function updateCinema($data,$id){
+        return $this->update($data,$id);
+    }
+
     // Récupérer les cinémas paginés avec recherche et tri
     public function getPaginatedCinema($start, $length, $searchValue, $orderColumnName, $orderDirection)
     {

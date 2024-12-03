@@ -30,6 +30,17 @@
         "perm": "none",
         "icon": "<i class=\"nav-icon fa-solid fa-ticket fa-rotate-180\" style=\"color: #0c256e;\"></i>"
 
+      },
+      "salle": {
+        "title": "Salle",
+        "url": "admin/salle",
+        "icon": "<i class=\"nav-icon fa-solid fa-person-booth\" style=\"color: #233658;\"></i>"
+      },
+      "seance": {
+        "title": "Séance",
+        "url": "admin/seance",
+        "icon": "<i class=\"nav-icon fa-solid fa-couch\" style=\"color: #24385c;\"></i>"
+
       }
     }
   },

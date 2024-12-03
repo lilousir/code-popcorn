@@ -12,7 +12,6 @@
                 <th>Date de sortie</th>
                 <th>Durée</th>
                 <th>Rating</th>
-                <th>Catégorie</th>
                 <th>Modifier</th>
             </tr>
             </thead>
@@ -43,7 +42,7 @@
                 {"data": "release_date"},
                 {"data": "duration"},
                 {"data": "rating"},
-                {"data": "id_cat"}, // Nouvelle colonne pour la catégorie
+
                 {
                     data: 'id',
                     sortable: false,
