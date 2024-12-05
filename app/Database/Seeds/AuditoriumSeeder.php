@@ -11,7 +11,11 @@ class AuditoriumSeeder extends Seeder
         $faker = \Faker\Factory::create('fr_FR');
         $data = [];
 
+
+        for ($theaterId = 21; $theaterId <= 40; $theaterId++) {
+=======
         for ($theaterId = 1; $theaterId <= 20; $theaterId++) {
+
             // Générer un nombre aléatoire de salles par cinéma (entre 3 et 12)
             $numberOfAuditoriums = random_int(3, 12);
 
@@ -28,4 +32,4 @@ class AuditoriumSeeder extends Seeder
         // Insérer toutes les données dans la table auditorium
         $this->db->table('auditorium')->insertBatch($data);
     }
-}
+

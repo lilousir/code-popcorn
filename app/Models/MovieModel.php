@@ -29,27 +29,37 @@ class MovieModel extends Model
         return $this->insert($data);
     }
 
+
+
      public function updateMovie($data,$id){
 
             return $this->update($data,$id);
 
+
     }
     public function getPaginatedMovie($start, $length, $searchValue, $orderColumnName, $orderDirection)
     {
-
-        return $this->get()->getResultArray();
+        $builder = $this->builder();
+        $builder->select("movies.*, media.file_path as affiche_url");
+        $builder->join("media", "media.entity_id = movies.id", "left");
+;        return $this->get()->getResultArray();
     }
 
     // Obtenir le nombre total de cinémas
     public function getTotalMovie()
     {
+        $builder = $this->builder();
+        $builder->select("movies.*, media.file_path as affiche_url");
+        $builder->join("media", "media.entity_id = movies.id", "left");
         return $this->countAllResults();
     }
 
     // Obtenir le nombre total de cinémas filtrés par recherche
     public function getFilteredMovie($searchValue)
     {
-
+        $builder = $this->builder();
+        $builder->select("movies.*, media.file_path as affiche_url");
+        $builder->join("media", "media.entity_id = movies.id", "left");
         return $this->countAllResults();
     }
 

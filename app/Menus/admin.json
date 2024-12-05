@@ -34,7 +34,9 @@
       "salle": {
         "title": "Salle",
         "url": "admin/salle",
-        "icon": "<i class=\"nav-icon fa-solid fa-person-booth\" style=\"color: #233658;\"></i>"
+
+        "icon": "<i class=\"nav-icon fa-solid fa-film\" style=\"color: #0c256e;\"></i>"
+
       },
       "seance": {
         "title": "Séance",
@@ -44,8 +46,8 @@
       }
     }
   },
-  "produits": {
-    "title": "Options",
+  "user": {
+    "title": "User",
     "url": "/user",
     "perm": "none",
     "icon": "<i class=\"nav-icon fa-solid fa-gear\" style=\"color: #0c256e;\"></i>",

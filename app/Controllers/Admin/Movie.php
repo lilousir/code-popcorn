@@ -9,6 +9,8 @@ class Movie extends BaseController
     protected $require_auth = true;
     protected $requiredPermissions = ['administrateur'];
 
+
+
     public function getindex($id = null)
     {
         $mm = model("MovieModel");
@@ -17,10 +19,20 @@ class Movie extends BaseController
         $categorys = $cm->getAllCategory(); // Récupère toutes les catégories
 
 
+
+
+
+        // Vérifie si le cinéma existe
+        if ($movies) {
+            // Ajoute un breadcrumb pour indiquer la modification du cinéma
+            $this->addBreadcrumb('Modification de ' . $movies['title'], '');
+            return $this->view("/admin/movie/movie", ["movie" => $movies], true);
+
         // Vérifie si un ID est passé en paramètre
         if ($id == null) {
             // Si aucun ID n'est fourni, récupère tous les films
             $movies = $mm->findAll();
+
 
             // Renvoie la vue listant les films en passant les données récupérées
             return $this->view("/admin/movie/index.php", ['cinemas' => $movies, 'category' => $categorys], true);
@@ -61,18 +73,100 @@ class Movie extends BaseController
         // Créer l'utilisateur et obtenir son ID
         $newMovieId = $cm->createMovie($data);
 
+
         // Vérifier si la création a réussi
         if ($newMovieId) {
-            $this->success("Le film à bien été ajouté.");
-            $this->redirect("/admin/movie");
-        } else {
-            $errors = $cm->errors();
-            foreach ($errors as $error) {
-                $this->error($error);
-                $this->redirect("/admin/movie/new");
+            if ($newMovieId) {
+                // Vérifier si des fichiers ont été soumis dans le formulaire
+                $file = $this->request->getFile('affiche_image'); // 'profile_image' est le nom du champ dans le formulaire
+                if ($file && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                    // Préparer les données du média
+                    $mediaData = [
+                        'entity_type' => 'movie',
+                        'entity_id' => $newMovieId,   // Utiliser le nouvel ID de l'utilisateur
+                    ];
+
+                    // Utiliser la fonction upload_file() pour gérer l'upload et les données du média
+                    $uploadResult = upload_file($file, 'movie', $data['title'], $mediaData);
+
+                    // Vérifier le résultat de l'upload
+                    if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
+                        // Afficher un message d'erreur détaillé et rediriger
+                        $this->error("Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message']);
+                        return $this->redirect("/admin/movie/new");
+                    }
+                }
+                $this->success("Le film à bien été ajouté.");
+                $this->redirect("/admin/movie");
+            } else {
+                $errors = $cm->errors();
+                foreach ($errors as $error) {
+                    $this->error($error);
+                    $this->redirect("/admin/movie/new");
+                }
+
             }
 
         }
+
+    }
+
+
+
+    public function postupdate() {
+        // Récupération des données envoyées via POST
+        $data = $this->request->getPost();
+
+        // Récupération du modèle UserModel
+        $um = Model("MovieModel");
+
+        // Vérifier si un fichier a été soumis dans le formulaire
+
+
+        // Mise à jour des informations utilisateur dans la base de données
+        if ($um->updateMovie($data['id'], $data)) {
+            $file = $this->request->getFile('affiche_image'); // 'profile_image' est le nom du champ dans le formulaire
+            // Si un fichier a été soumis
+            if ($file && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                // Récupération du modèle MediaModel
+                $mm = Model('MediaModel');
+                // Récupérer l'ancien média avant l'upload
+                $old_media = $mm->getMediaByEntityIdAndType($data['id'], 'movie');
+
+                // Préparer les données du média pour le nouvel upload
+                $mediaData = [
+                    'entity_type' => 'movie',
+                    'entity_id'   => $data['id'],   // Utiliser l'ID de l'utilisateur
+                ];
+
+                // Utiliser la fonction upload_file() pour gérer l'upload et enregistrer les données du média
+                $uploadResult = upload_file($file, 'affiche', $data['title'], $mediaData, true, ['image/jpeg', 'image/png','image/jpg']);
+
+                // Vérifier le résultat de l'upload
+                if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
+                    // Afficher un message d'erreur détaillé et rediriger
+                    $this->error("Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message']);
+                    return $this->redirect("/admin/movie");
+                }
+
+                // Si l'upload est un succès, suppression de l'ancien média
+                if ($old_media) {
+                    $mm->deleteMedia($old_media[0]['id']);
+                }
+            }
+            // Si la mise à jour réussit
+            $this->success("Le film a bien été modifié.");
+        } else {
+            $errors = $um->errors();
+            foreach ($errors as $error) {
+                $this->error($error);
+            }
+        }
+
+
+        // Redirection vers la page des utilisateurs après le traitement
+        return $this->redirect("/admin/movie");
+
 
     }
 
