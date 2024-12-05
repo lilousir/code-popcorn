@@ -8,11 +8,11 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>Affiche</th>
                 <th>Titre</th>
                 <th>Date de sortie</th>
                 <th>Durée</th>
                 <th>Rating</th>
-                <th>Catégorie</th>
                 <th>Modifier</th>
             </tr>
             </thead>
@@ -39,11 +39,23 @@
             },
             "columns": [
                 {"data": "id"},
+                {
+                    data : 'affiche_url',
+                    sortable : false,
+                    render : function(data) {
+                        if (data) {
+                            return `<img src="${baseUrl}${data}" alt="Avatar" style="max-width: 20px; height: auto;">`;
+                        } else {
+                            // Retourne une image par défaut si data est vide
+                            return '<img src="' + baseUrl + 'assets/img/affiche/hp2.jpg" alt="Default Avatar" style="max-width: 50px; height: auto;">';
+                        }
+                    }
+                },
                 {"data": "title"},
                 {"data": "release_date"},
                 {"data": "duration"},
                 {"data": "rating"},
-                {"data": "id_cat"}, // Nouvelle colonne pour la catégorie
+               // Nouvelle colonne pour la catégorie
                 {
                     data: 'id',
                     sortable: false,

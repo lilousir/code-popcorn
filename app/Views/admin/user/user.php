@@ -58,6 +58,10 @@
                                 <input type="text" class="form-control" id="phone" placeholder="phone" value="<?= isset($utilisateur) ? $utilisateur['phone'] : "" ?>" name="phone">
                             </div>
                             <div class="mb-3">
+                                <label for="dob" class="form-label">Date de naissance</label>
+                                <input type="date" class="form-control" id="dob" placeholder="dob" value="<?= isset($movie) ? $movie['dob'] : ""; ?>" name="dob">
+                            </div>
+                            <div class="mb-3">
                                 <label for="password" class="form-label">Mot de passe</label>
                                 <input type="password" class="form-control" id="password" placeholder="password" value="" name="password">
                             </div>

@@ -1,0 +1,27 @@
+{
+  "film": {
+    "title": "Film",
+    "url": "/",
+    "icon": "<i class=\"nav-icon fa-solid fa-boxes-stacked\"></i>",
+    "subs": {
+      "cinema": {
+        "title": "Cinéma de ta ville",
+        "url": "/item",
+        "icon": "<i class=\"nav-icon fa-solid fa-box-open\"></i>"
+      }
+    }
+  },
+  "AllUser": {
+    "title": "User",
+    "url": "user/allusers",
+    "icon": "<i class=\"fa-solid fa-circle-user\" style=\"color: #223d6d;\"></i>",
+    "subs": {
+      "users": {
+        "title": "Users",
+        "url": "user/allusers",
+        "icon": "<i class=\"fa-solid fa-people-group\" style=\"color: #2b5191;\"></i>"
+      }
+    }
+  }
+}
+
