@@ -2,6 +2,7 @@
 
 namespace App\Database\Migrations;
 
+
 use CodeIgniter\Database\Migration;
 
 class Theater extends Migration

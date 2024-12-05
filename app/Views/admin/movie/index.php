@@ -55,7 +55,11 @@
                 {"data": "release_date"},
                 {"data": "duration"},
                 {"data": "rating"},
-               // Nouvelle colonne pour la catégorie
+
+              
+
+
+
                 {
                     data: 'id',
                     sortable: false,

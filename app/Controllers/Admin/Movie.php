@@ -9,30 +9,17 @@ class Movie extends BaseController
     protected $require_auth = true;
     protected $requiredPermissions = ['administrateur'];
 
-public function getindex($id = null){
-
-//    $movies = Model("MovieModel")->getAllUmovies();
-//    return $this->view('admin/movie/index',['movies' => $movies], true);
-    // Instancie le modèle pour gérer les cinémas.
-    $mm = model("MovieModel");
-
-    // Vérifie si un ID est passé en paramètre
-    if ($id == null) {
-        // Si aucun ID n'est fourni, récupère tous les cinémas
-        $movies = $mm->findAll();
 
 
-        // Renvoie la vue listant les cinémas en passant les données récupérées
-        return $this->view("/admin/movie/index.php", ['cinemas' => $movies], true);
-    } else {
-        // Si l'ID est égal à "new", cela signifie qu'un nouveau cinéma doit être créé
-        if ($id == "new") {
-            // Ajoute un breadcrumb pour indiquer la création d'un nouveau cinéma
-            return $this->view("admin/movie/movie", [],true);
+    public function getindex($id = null)
+    {
+        $mm = model("MovieModel");
+        $cm = model('CategoryModel'); // Charge le modèle des catégories
+        $cmm = model("CategoryMovieModel");
+        $categorys = $cm->getAllCategory(); // Récupère toutes les catégories
 
-        }
-        // Sinon, on suppose que l'ID correspond à un cinéma existant, récupère ses informations
-        $movies = $mm->find($id);
+
+
 
 
         // Vérifie si le cinéma existe
@@ -41,15 +28,41 @@ public function getindex($id = null){
             $this->addBreadcrumb('Modification de ' . $movies['title'], '');
             return $this->view("/admin/movie/movie", ["movie" => $movies], true);
 
-        } else {
-            // Si le cinéma avec cet ID n'existe pas, affiche un message d'erreur
-            $this->error("L'ID du film n'existe pas");
+        // Vérifie si un ID est passé en paramètre
+        if ($id == null) {
+            // Si aucun ID n'est fourni, récupère tous les films
+            $movies = $mm->findAll();
 
-            // Redirige l'utilisateur vers la liste des cinémas
-            $this->redirect("/admin/movie");
+
+            // Renvoie la vue listant les films en passant les données récupérées
+            return $this->view("/admin/movie/index.php", ['cinemas' => $movies, 'category' => $categorys], true);
+        } else {
+            // Si l'ID est égal à "new", cela signifie qu'un nouveau film doit être créé
+            if ($id == "new") {
+                return $this->view("admin/movie/movie", ['category' => $categorys], true);
+            }
+
+            // Sinon, on suppose que l'ID correspond à un film existant
+            $movies = $mm->find($id);
+            $categoriesForMovie = $cmm->getAllFullMovieCategorieByIdMovie($id); // Récupère les catégories liées au film
+
+            // Vérifie si le film existe
+            if ($movies) {
+                // Ajoute un breadcrumb pour indiquer la modification du film
+                $this->addBreadcrumb('Modification de ' . $movies['title'], '');
+                return $this->view("/admin/movie/movie", [
+                    "movie" => $movies,
+                    'category' => $categorys,
+                    'categoriesForMovie' => $categoriesForMovie
+                ], true);
+            } else {
+                // Si le film avec cet ID n'existe pas, affiche un message d'erreur
+                $this->error("L'ID du film n'existe pas");
+                $this->redirect("/admin/movie"); // Redirige vers la liste des films
+            }
         }
     }
-}
+
 
 
     public function postcreate()
@@ -150,9 +163,39 @@ public function getindex($id = null){
             }
         }
 
+
         // Redirection vers la page des utilisateurs après le traitement
         return $this->redirect("/admin/movie");
+
+
     }
+
+    public function postupdate()
+    {
+        // Récupération des données envoyées via POST
+        $data = $this->request->getPost();
+
+        // Récupération du modèle UserModel
+        $mm = Model("MovieModel");
+
+        // Mise à jour des informations utilisateur dans la base de données
+        if ($mm->updateMovie($data['id'], $data)) {
+            // Si la mise à jour réussit
+            $this->success("Le film a bien été modifié.");
+        } else {
+            $errors = $mm->errors();
+            foreach ($errors as $error) {
+                $this->error($error);
+            }
+        }
+
+        // Redirection vers la page des films après le traitement
+        return $this->redirect("/admin/movie");
+    }
+
+
+
+
 
     public function postSearchMovies()
     {

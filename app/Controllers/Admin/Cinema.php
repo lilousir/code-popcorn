@@ -67,9 +67,29 @@ class Cinema extends BaseController
 
         }
     }
-    public function postupdate() {
+    public function postupdate()
+    {
+        // Récupération des données envoyées via POST
+        $data = $this->request->getPost();
 
+        // Récupération du modèle UserModel
+        $mm = Model("CinemaModel");
+
+        // Mise à jour des informations utilisateur dans la base de données
+        if ($mm->updateCinema($data['id'], $data)) {
+            // Si la mise à jour réussit
+            $this->success("Le film a bien été modifié.");
+        } else {
+            $errors = $mm->errors();
+            foreach ($errors as $error) {
+                $this->error($error);
+            }
+        }
+
+        // Redirection vers la page des films après le traitement
+        return $this->redirect("/admin/movie");
     }
+
     public function postSearchCinema()
     {
         $CinemaModel = model('App\Models\CinemaModel');

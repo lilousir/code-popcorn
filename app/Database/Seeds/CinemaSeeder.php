@@ -17,7 +17,9 @@ class CinemaSeeder extends Seeder
                 'address'   => $faker->address,
                 'phone'     => $faker->phoneNumber,
                 'email'     => $faker->companyEmail,
-                'city_id'   => random_int(1, 35076),
+                'id_city'   => random_int(1, 35076),
+                'created_at'=> null,
+                'updated_at'=> null,
                 'deleted_at'=> null,
             ];
         }

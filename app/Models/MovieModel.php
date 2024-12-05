@@ -10,7 +10,7 @@ class MovieModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['title', 'release_date', 'duration', 'rating', 'slug', 'description', 'id_cat'];
+    protected $allowedFields = ['title', 'release_date', 'duration', 'rating', 'slug', 'description'];
 
 
 
@@ -29,8 +29,13 @@ class MovieModel extends Model
         return $this->insert($data);
     }
 
-    public function updateMovie( $id,$data){
-        return $this->update($id, $data);
+
+
+     public function updateMovie($data,$id){
+
+            return $this->update($data,$id);
+
+
     }
     public function getPaginatedMovie($start, $length, $searchValue, $orderColumnName, $orderDirection)
     {

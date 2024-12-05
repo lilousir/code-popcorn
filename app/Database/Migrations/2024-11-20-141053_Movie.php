@@ -40,15 +40,11 @@ class Movie extends Migration
             'active' => [
                 'type' => 'BOOLEAN',
             ],
-            'id_cat' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-            ],
+
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_cat', 'category_movie', 'id', 'CASCADE', 'CASCADE');
+
         $this->forge->createTable('movies');
     }
 
