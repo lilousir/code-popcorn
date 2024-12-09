@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+<nav class="navbar fixed-top navbar-expand-lg" style="background-color: #f8f8d9; color: #ffffff;">
     <div class="container">
         <a class="navbar-brand" href="#"><img src="<?= base_url('/assets/brand/logo1.PNG') ?>" class="sidebar-brand-narrow" _width="32" height="40" alt="Gest-Collect" />Code-PopCorn</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
                         <li class="p-2"><img class="img-thumbnail mx-auto d-block" height="80px" src="<?= base_url($user->getProfileImage()); ?>"></li>
                         <li><a class="dropdown-item" href="<?= base_url('/admin/user/'); ?><?= $user->id; ?>"><i class="fa-solid fa-pencil me-2"></i>Mon profil</a></li>
                         <li><a class="dropdown-item" href="<?= base_url('/collection');?>"><i class="fa-brands fa-raspberry-pi me-2"></i>Mes achats</a></li>
-                        <li><a class="dropdown-item" href="<?= base_url('/collection');?>"><i class="fa-brands fa-raspberry-pi me-2"></i>Ma liste d'envie</a></li>
+
                         <li><a class="dropdown-item" href="<?= base_url('/login/logout');?>"><i class="fa-solid fa-right-from-bracket me-2"></i>Déconnexion</a></li>
 
 

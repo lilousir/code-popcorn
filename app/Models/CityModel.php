@@ -21,9 +21,12 @@ class CityModel extends Model
     }
     public function searchCityByName($searchValue, $limit = 10)
     {
-        return $this->select('id, label') // Assure-toi d'utiliser 'name' ici
-        ->like('label', $searchValue)  // Recherche dans le champ 'name'
-        ->limit($limit)               // Limiter à 10 résultats par défaut
-        ->findAll();
+        // On effectue la requête sur la base de données
+        $builder = $this->db->table('city');
+        $builder->like('label', $searchValue); // On recherche les villes dont le nom contient $searchValue
+        $builder->orLike('zip_code', $searchValue); // On recherche les villes dont le nom contient $searchValue
+        $query = $builder->get();
+
+        return $query->getResultArray(); // Retourne les résultats sous forme de tableau
     }
 }

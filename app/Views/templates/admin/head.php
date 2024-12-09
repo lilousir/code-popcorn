@@ -26,6 +26,8 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+
     <!-- CSS-->
     <link rel="stylesheet" href="<?= base_url('/vendors/simplebar/css/simplebar.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/css/vendors/simplebar.css') ?>">
@@ -37,14 +39,29 @@
     <!-- Javascript -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <script src="<?= base_url('/js/jquery-3.7.1.min.js') ?>"></script>
+    <!-- SELECT 2 (recherche) -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="<?= base_url('/js/admin.js') ?>"></script>
     <script src="<?= base_url('/js/config.js') ?>"></script>
     <script src="<?= base_url('/js/color-modes.js') ?>"></script>
     <script src="<?= base_url('/vendors/@coreui/coreui/js/coreui.bundle.min.js') ?>"></script>
     <script src="<?= base_url('/vendors/simplebar/js/simplebar.min.js') ?>"></script>
     <script src="<?= base_url('/vendors/@coreui/utils/js/index.js') ?>"></script>
-    <script src="<?= base_url('/js/admin.js') ?>"></script>
+    <script type="text/javascript">var base_url = "<?= base_url(); ?>";</script>
+
     <script src="<?= base_url('/js/toastr.min.js') ?>"></script>
     <script src="<?= base_url('/js/tinymce/tinymce.min.js') ?>"></script>
+    <script>
+        $(document).ready(function () {
+            if ($.fn.select2) {
+                console.log('Select2 est chargé correctement.');
+            } else {
+                console.log('Select2 ne fonctionne pas.');
+            }
+        });
+    </script>
 
     <script>
         const header = document.querySelector('header.header');

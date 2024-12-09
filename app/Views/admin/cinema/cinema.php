@@ -40,7 +40,7 @@
                                 <input type="email" class="form-control" id="email" placeholder="email" value="" name="email">
                             </div>
                             <label for="city" class="form-label">ville</label>
-                            <select id="search-city-head" class="form-control me-2" name="city"></select>
+                            <select id="search-city-head" class="form-control me-2" name="id_city"></select>
 
                             </div>
                         </div>
