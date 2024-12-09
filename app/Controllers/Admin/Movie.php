@@ -14,54 +14,51 @@ class Movie extends BaseController
     public function getindex($id = null)
     {
         $mm = model("MovieModel");
-        $cm = model('CategoryModel'); // Charge le modèle des catégories
+        $cm = model("CategoryModel");
         $cmm = model("CategoryMovieModel");
-        $categorys = $cm->getAllCategory(); // Récupère toutes les catégories
 
+        // Récupère toutes les catégories
+        $categorys = $cm->getAllCategory();
 
-
-
-
-        // Vérifie si le cinéma existe
-        if ($movies) {
-            // Ajoute un breadcrumb pour indiquer la modification du cinéma
-            $this->addBreadcrumb('Modification de ' . $movies['title'], '');
-            return $this->view("/admin/movie/movie", ["movie" => $movies], true);
-
-        // Vérifie si un ID est passé en paramètre
-        if ($id == null) {
-            // Si aucun ID n'est fourni, récupère tous les films
+        // Si aucun ID n'est fourni, affiche la liste de tous les films
+        if ($id === null) {
             $movies = $mm->findAll();
+            return $this->view("/admin/movie/index.php", [
+                'movies' => $movies,
+                'category' => $categorys
+            ], true);
+        }
 
+        // Si l'ID est "new", prépare la vue pour créer un nouveau film
+        if ($id === "new") {
+            return $this->view("/admin/movie/movie", [
+                'category' => $categorys
+            ], true);
+        }
 
-            // Renvoie la vue listant les films en passant les données récupérées
-            return $this->view("/admin/movie/index.php", ['cinemas' => $movies, 'category' => $categorys], true);
+        // Si l'ID est numérique, récupère les informations du film correspondant
+        $movies = $mm->getMovieById($id);
+
+        if ($movies) {
+            // Récupère les catégories associées au film
+            $categoriesForMovie = $cmm->getAllFullMovieCategorieByIdMovie($id);
+
+            // Ajoute un breadcrumb pour indiquer la modification du film
+            $this->addBreadcrumb('Modification de ' . htmlspecialchars($movies['title']), '');
+
+            // Affiche la vue de modification avec les données du film et ses catégories
+            return $this->view("/admin/movie/movie", [
+                "movie" => $movies,
+                "category" => $categorys,
+                "categoriesForMovie" => $categoriesForMovie
+            ], true);
         } else {
-            // Si l'ID est égal à "new", cela signifie qu'un nouveau film doit être créé
-            if ($id == "new") {
-                return $this->view("admin/movie/movie", ['category' => $categorys], true);
-            }
-
-            // Sinon, on suppose que l'ID correspond à un film existant
-            $movies = $mm->find($id);
-            $categoriesForMovie = $cmm->getAllFullMovieCategorieByIdMovie($id); // Récupère les catégories liées au film
-
-            // Vérifie si le film existe
-            if ($movies) {
-                // Ajoute un breadcrumb pour indiquer la modification du film
-                $this->addBreadcrumb('Modification de ' . $movies['title'], '');
-                return $this->view("/admin/movie/movie", [
-                    "movie" => $movies,
-                    'category' => $categorys,
-                    'categoriesForMovie' => $categoriesForMovie
-                ], true);
-            } else {
-                // Si le film avec cet ID n'existe pas, affiche un message d'erreur
-                $this->error("L'ID du film n'existe pas");
-                $this->redirect("/admin/movie"); // Redirige vers la liste des films
-            }
+            // Si le film n'existe pas, affiche un message d'erreur et redirige
+            $this->error("L'ID du film n'existe pas");
+            return $this->redirect("/admin/movie");
         }
     }
+
 
 
 
@@ -168,29 +165,6 @@ class Movie extends BaseController
         return $this->redirect("/admin/movie");
 
 
-    }
-
-    public function postupdate()
-    {
-        // Récupération des données envoyées via POST
-        $data = $this->request->getPost();
-
-        // Récupération du modèle UserModel
-        $mm = Model("MovieModel");
-
-        // Mise à jour des informations utilisateur dans la base de données
-        if ($mm->updateMovie($data['id'], $data)) {
-            // Si la mise à jour réussit
-            $this->success("Le film a bien été modifié.");
-        } else {
-            $errors = $mm->errors();
-            foreach ($errors as $error) {
-                $this->error($error);
-            }
-        }
-
-        // Redirection vers la page des films après le traitement
-        return $this->redirect("/admin/movie");
     }
 
 

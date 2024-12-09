@@ -47,12 +47,13 @@
 
                          <div class="mb-3">
                                <label for="rating" class="form-label">Pegi</label>
+
                              <select class="form-select" name="rating">
                                  <option value="none" selected>Aucun</option>
-                                 <option value="1">Tous public</option>
-                                 <option value="2">-16</option>
-                                 <option value="3">-12</option>
-                                 <option value="3">-18</option>
+                                 <option value="Tous publics"<?= (isset($movie) && $movie['rating'] == "Tous publics") ? "selected"  : ""; ?>>Tous publics</option>
+                                 <option value="-12"<?= (isset($movie) && $movie['rating'] == "-12") ? "selected"  : ""; ?>>-12</option>
+                                 <option value="-16"<?= (isset($movie) && $movie['rating'] == "-16") ? "selected"  : ""; ?>>-16</option>
+                                 <option value="-18"<?= (isset($movie) && $movie['rating'] == "-18") ? "selected"  : ""; ?>>-18</option>
                              </select>
 
 
@@ -67,37 +68,10 @@
                                          style="display: <?= isset($movie['affiche_url']) ? "block" : "none" ?>; max-width: 100px;"
                                          src="<?= $profileImageUrl ?>">
                                 </div>
-
                                 <input class="form-control" type="file" name="affiche_image" id="image">
-
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description :</label>
-                                <textarea class="form-control" id="description" name="description" placeholder="Description du film"><?= isset($movie) ? $movie['description'] : ""; ?></textarea>
-                            </div>
-
-                           
                             </div>
                             <div class="row row-cols-4" id="genre-list">
-                                <label for="category" class="form-label">Catégorie du film :</label>
-                                <?php
-                                foreach ($categorys as $category) { // Utiliser $category pour itérer
-                                    if (isset($category_movie)) {
-                                        $category_ids = array_column($category_movie, 'id');
-                                    }
-                                    $isChecked = isset($category_ids) && in_array($category['id'], $category_ids) ? 'checked' : ''; // Référer à $category
-                                    ?>
-                                    <div class="col genre-item">
-                                        <input class="form-check-input"
-                                               type="checkbox"
-                                               value="<?= htmlspecialchars($category['id']) ?>"
-                                               id="chk-<?= htmlspecialchars($category['slug']) ?>"
-                                               name="category_movie[]" <?= $isChecked ?>>
-                                        <label class="form-check-label"
-                                               for="chk-<?= htmlspecialchars($category['slug']) ?>">
-                                            <?= htmlspecialchars($category['name']) ?>
-                                        </label>
-                                    </div>
-                                <?php } ?>
+
                             </div>
 
                         </div>

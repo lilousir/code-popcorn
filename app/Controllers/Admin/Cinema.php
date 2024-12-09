@@ -124,5 +124,24 @@ class Cinema extends BaseController
         ];
         return $this->response->setJSON($result);
     }
+    public function getautocompletecity(){
+        $searchValue = $this->request->getGet('q'); // Récupère le terme de recherche envoyé par Select2
 
+        $cityModel = Model("CityModel");
+
+        // Appelle la méthode de recherche dans le modèle
+        $city = $cityModel->searchCityByName($searchValue);
+
+        // Formatage des résultats pour Select2
+        $results = [];
+        foreach ($city as $c) {
+            $results[] = [
+                'id' => $c['id'],  // Utilise le slug comme ID pour redirection ultérieure
+                'text' => $c['label']." - " .$c['zip_code']// Ce texte sera affiché dans le dropdown de Select2
+            ];
+        }
+
+        // Retourne les résultats sous forme JSON pour Select2
+        return $this->response->setJSON($results);
+    }
 }
