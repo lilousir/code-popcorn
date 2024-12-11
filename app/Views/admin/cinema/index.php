@@ -8,6 +8,7 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>image</th>
                 <th>name</th>
                 <th>address</th>
                 <th>ville</th>
@@ -40,6 +41,18 @@
             },
             "columns": [
                 {"data": "id"},
+                {
+                    data : 'photo_url',
+                    sortable : false,
+                    render : function(data) {
+                        if (data) {
+                            return `<img src="${baseUrl}${data}" alt="Avatar" style="max-width: 20px; height: auto;">`;
+                        } else {
+                            // Retourne une image par défaut si data est vide
+                            return '<img src="' + baseUrl + 'assets/img/affiche/Ecole-poudlard.jpg" alt="Default Avatar" style="max-width: 50px; height: auto;">';
+                        }
+                    }
+                },
                 {"data": "name"},
                 {"data": "address"},
                 {"data": "label"},

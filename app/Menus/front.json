@@ -2,25 +2,28 @@
   "film": {
     "title": "Film",
     "url": "/",
-    "icon": "<i class=\"nav-icon fa-solid fa-boxes-stacked\"></i>",
+    "icon": "<i class=\"nav-icon fa-solid fa-film\" style=\"color: #000000;\"></i>",
     "subs": {
-      "cinema": {
-        "title": "Cinéma de ta ville",
-        "url": "film/",
-        "icon": "<i class=\"nav-icon fa-solid fa-box-open\"></i>"
+      "films": {
+        "title": "Liste des films",
+        "url": "film/"
+      },
+      "film": {
+        "title": "Film du moment",
+        "url": ""
       }
     }
   },
-  "AllUser": {
-    "title": "User",
-    "url": "user/allusers",
-    "icon": "<i class=\"fa-solid fa-circle-user\" style=\"color: #223d6d;\"></i>",
+  "Cinema": {
+    "title": "Cinéma",
+    "url": "",
+    "icon": "<i class=\"fa-solid fa-igloo\" style=\"color: #000000;\"></i>",
     "subs": {
-      "users": {
-        "title": "Users",
-        "url": "user/allusers",
-        "icon": "<i class=\"fa-solid fa-people-group\" style=\"color: #2b5191;\"></i>"
+      "cinema": {
+        "title": "Nos cinéma",
+        "url": "cinema/"
       }
+
     }
   }
 }

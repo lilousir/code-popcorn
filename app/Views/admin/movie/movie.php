@@ -64,7 +64,7 @@
                                     <?php
                                     $profileImageUrl = isset($movie['affiche_url']) ? base_url($movie['affiche_url']) : "#";
                                     ?>
-                                    <img class="img-thumbnail me-2"alt="Aperçu de l'image"
+                                    <img class="img-thumbnail me-2" alt="Aperçu de l'image"
                                          style="display: <?= isset($movie['affiche_url']) ? "block" : "none" ?>; max-width: 100px;"
                                          src="<?= $profileImageUrl ?>">
                                 </div>

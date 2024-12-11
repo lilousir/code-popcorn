@@ -14,23 +14,39 @@ class CinemaModel extends Model
     protected $useTimestamps = false;
 
     // Récupérer tous les cinémas
-    public function getAllTheaters()
+    public function getAllMovieFiltered($data,$perPage = 8)
     {
-        return $this->findAll();
+        $builder = $this->builder();
+        $builder->select("theater.*, media.file_path as photo_url");
+        $builder->join("media", "media.entity_id = theater.id AND media.entity_type = 'theater'", "left");
+        return $this->paginate($perPage);
     }
+
+    public function getTheatersById($id)
+    {
+        $builder = $this->builder();
+        $builder->select("theater.*, media.file_path as photo_url");
+        $builder->join("media", "media.entity_id = theater.id AND media.entity_type = 'theater'", "left");
+        return $this->where('theater.id', $id)->get()->getRowArray();
+
+    }
+
     public function createCinema($data)
     {
         return $this->insert($data);
     }
 
-    public function updateCinema($data,$id){
-        return $this->update($data,$id);
+    public function updateCinema($data, $id)
+    {
+        return $this->update($data, $id);
     }
 
     // Récupérer les cinémas paginés avec recherche et tri
     public function getPaginatedCinema($start, $length, $searchValue, $orderColumnName, $orderDirection)
     {
         $builder = $this->builder();
+        $builder->select("theater.*, media.file_path as photo_url");
+        $builder->join("media", "media.entity_id = theater.id AND media.entity_type = 'theater'", "left");
         $builder->join('city', 'theater.id_city = city.id', 'left'); // Jointure avec la table city
         $builder->select('theater.*, city.label'); // Sélectionner les champs nécessaires
 
@@ -58,21 +74,28 @@ class CinemaModel extends Model
     }
 
     // Obtenir le nombre total de cinémas filtrés par recherche
-    public function getFilteredCinema($searchValue)
+    public function getFilteredCinema($searchValue, $limit = null, $offset = null)
     {
         $builder = $this->builder();
-        $builder->join('city', 'theater.id_city = city.id', 'left'); // Jointure avec la table city
-        $builder->select('theater.*, city.label'); // Sélectionner les champs nécessaires
-
+        $builder->select("theater.*, media.file_path as photo_url");
+        $builder->join("media", "media.entity_id = theater.id AND media.entity_type = 'theater'", "left");
+        $builder->join('city', 'theater.id_city = city.id', 'left');
 
         // Filtrage
         if (!empty($searchValue)) {
+            $builder->groupStart();
             $builder->like('theater.name', $searchValue);
             $builder->orLike('theater.email', $searchValue);
             $builder->orLike('city.label', $searchValue);
+            $builder->groupEnd();
         }
 
-        return $builder->countAllResults();
-    }
+        // Pagination
+        if ($limit !== null) {
+            $builder->limit($limit, $offset);
+        }
 
+        return $builder->get()->getResultArray(); // Retourne les données
+    }
 }
+

@@ -16,13 +16,13 @@ class Film extends BaseController
         if ($slug === null) {
             $data = $this->request->getGet();
             // Récupère tous les films
-            $movies = $mm->getAllUmovies();
             $perPage = 8;
-            $allmovie = $mm->getAllMovieFiltered($data, 1, $perPage);
-
+            $movies = $mm->getAllMovieFiltered($data,12, $perPage);
+            $pager = $mm->pager;
             return $this->view('film/movies', [
                 'movies' => $movies,
-                'allmovies' => $allmovie
+                'pager' => $pager
+
             ]);
         }
 

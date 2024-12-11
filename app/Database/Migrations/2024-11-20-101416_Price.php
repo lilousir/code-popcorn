@@ -22,6 +22,16 @@ class Price extends Migration
             'amount' => [
                 'type' => 'FLOAT',
 
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
             ]
         ]);
         $this->forge->addPrimaryKey('id');

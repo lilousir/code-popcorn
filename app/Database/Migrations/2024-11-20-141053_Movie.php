@@ -37,9 +37,6 @@ class Movie extends Migration
             'description' => [
                 'type' => 'TEXT',
             ],
-            'active' => [
-                'type' => 'BOOLEAN',
-            ],
 
         ]);
 

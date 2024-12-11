@@ -37,11 +37,19 @@
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">email</label>
-                                <input type="email" class="form-control" id="email" placeholder="email" value="" name="email">
+                                <input type="email" class="form-control" id="email" placeholder="email" value="<?= isset($cinema) ? $cinema['email'] : ""; ?>" name="email">
                             </div>
-                            <label for="city" class="form-label">ville</label>
-                            <select id="search-city-head" class="form-control me-2" name="id_city"></select>
-
+                            <div class="mb-3 d-flex align-items-center">
+                                <label for="image" class="form-label me-2">Image du cinéma</label>
+                                <div id="preview">
+                                    <?php
+                                    $profileImageUrl = isset($cinema['photo_url']) ? base_url($cinema['photo_url']) : "#";
+                                    ?>
+                                    <img class="img-thumbnail me-2" alt="Aperçu de l'image"
+                                         style="display: <?= isset($cinema['photo_url']) ? "block" : "none" ?>; max-width: 100px;"
+                                         src="<?= $profileImageUrl ?>">
+                                </div>
+                                <input class="form-control" type="file" name="photo_image" id="image">
                             </div>
                         </div>
                         <div class="tab-pane" id="onglet" role="tabpanel" aria-labelledby="onglet-tab" tabindex="0">
