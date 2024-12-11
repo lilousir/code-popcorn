@@ -24,16 +24,19 @@ class MovieModel extends Model
     }
 
 
-    public function getAllUmovies()
+    public function getAllMovieFiltered($data,$perPage = 8)
     {
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
         $builder->join("media", "media.entity_id = movies.id", "left");
-        return $this->findAll();
+        return $this->paginate($perPage);
     }
 
     public function getMovieBySlug($slug)
     {
+        $builder = $this->builder();
+        $builder->select("movies.*, media.file_path as affiche_url");
+        $builder->join("media", "media.entity_id = movies.id", "left");
         return $this->where('slug', $slug)->get()->getRowArray();
     }
 
@@ -101,13 +104,8 @@ class MovieModel extends Model
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
         $builder->join("media", "media.entity_id = movies.id", "left");
+
         return $this->countAllResults();
     }
 
-    public function getAllMovieFiltered($data, $active = 1, $perPage = 8)
-    {
-        $this->select("item.id, item.name, item.slug, media.file_path as default_img_file_path");
-        $this->join('media', 'item.id_default_img = media.id', 'left');
-
-    }
 }

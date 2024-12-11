@@ -29,7 +29,7 @@ class Cinema extends BaseController
 
             }
             // Sinon, on suppose que l'ID correspond à un cinéma existant, récupère ses informations
-            $cinema = $cm->find($id);
+            $cinema = $cm->getTheatersById($id);
 
             // Vérifie si le cinéma existe
             if ($cinema) {
@@ -73,21 +73,51 @@ class Cinema extends BaseController
         $data = $this->request->getPost();
 
         // Récupération du modèle UserModel
-        $mm = Model("CinemaModel");
+        $cm = Model("CinemaModel");
 
         // Mise à jour des informations utilisateur dans la base de données
-        if ($mm->updateCinema($data['id'], $data)) {
+        if ($cm->updateCinema($data['id'], $data)) {
+            $file = $this->request->getFile('photo_image'); // 'profile_image' est le nom du champ dans le formulaire
+            // Si un fichier a été soumis
+            if ($file && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                // Récupération du modèle MediaModel
+                $mm = Model('MediaModel');
+                // Récupérer l'ancien média avant l'upload
+                $old_media = $mm->getMediaByEntityIdAndType($data['id'], 'theater');
+
+                // Préparer les données du média pour le nouvel upload
+                $mediaData = [
+                    'entity_type' => 'theater',
+                    'entity_id'   => $data['id'],   // Utiliser l'ID de l'utilisateur
+                ];
+
+                // Utiliser la fonction upload_file() pour gérer l'upload et enregistrer les données du média
+                $uploadResult = upload_file($file, 'photo', $data['name'], $mediaData, true, ['image/jpeg', 'image/png','image/jpg']);
+
+                // Vérifier le résultat de l'upload
+                if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
+                    // Afficher un message d'erreur détaillé et rediriger
+                    $this->error("Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message']);
+                    return $this->redirect("/admin/cinema");
+                }
+
+                // Si l'upload est un succès, suppression de l'ancien média
+                if ($old_media) {
+                    $mm->deleteMedia($old_media[0]['id']);
+                }
+            }
+
             // Si la mise à jour réussit
-            $this->success("Le film a bien été modifié.");
+            $this->success("Le cinéma a bien été modifié.");
         } else {
-            $errors = $mm->errors();
+            $errors = $cm->errors();
             foreach ($errors as $error) {
                 $this->error($error);
             }
         }
 
         // Redirection vers la page des films après le traitement
-        return $this->redirect("/admin/movie");
+        return $this->redirect("/admin/cinema");
     }
 
     public function postSearchCinema()

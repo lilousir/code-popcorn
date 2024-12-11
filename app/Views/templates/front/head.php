@@ -57,7 +57,8 @@
     <!-- CSS-->
     <link rel="stylesheet" href="<?= base_url('/css/toastr.min.css') ?>">
 </head>
-<body style="margin-top:70px;">
+<body style="margin-top:70px; background-color: #2f1b0c;">
+
 <?php if (isset($menus)) {
     echo view($template_dir . 'sidebar',['menus' => $menus]);  }  ?>
 <div class="container">
