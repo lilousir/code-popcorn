@@ -25,7 +25,7 @@ class Salle extends BaseController
             return $this->view("/admin/salle/index.php", ['salle' => $salle], true);
         } else {
             // Si l'ID est égal à "new", cela signifie qu'un nouveau cinéma doit être créé
-            $cinema = model("CinemaModel")->getAllTheaters();
+            $cinema = model("CinemaModel")->getAlltheater();
             if ($id == "new") {
 
                 // Ajoute un breadcrumb pour indiquer la création d'un nouveau cinéma
@@ -33,10 +33,7 @@ class Salle extends BaseController
 
             }
             // Sinon, on suppose que l'ID correspond à un cinéma existant, récupère ses informations
-            $salle = $sm->find($id);
-
-
-
+            $salle = $sm->getSalleById($id);
             // Vérifie si le cinéma existe
             if ($salle) {
                 // Ajoute un breadcrumb pour indiquer la modification du cinéma

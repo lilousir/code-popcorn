@@ -16,6 +16,7 @@ class Film extends BaseController
         if ($slug === null) {
             $data = $this->request->getGet();
             // Récupère tous les films
+
             $perPage = 8;
             $movies = $mm->getAllMovieFiltered($data,12, $perPage);
             $pager = $mm->pager;
@@ -24,7 +25,10 @@ class Film extends BaseController
                 'pager' => $pager
 
             ]);
+
         }
+
+
 
         // Récupère un film par son slug
         $movie = $mm->getMovieBySlug($slug);

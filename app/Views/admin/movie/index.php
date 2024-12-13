@@ -14,6 +14,7 @@
                 <th>Durée</th>
                 <th>Rating</th>
                 <th>Modifier</th>
+                <th>activer</th>
             </tr>
             </thead>
             <tbody>
@@ -65,6 +66,14 @@
                     sortable: false,
                     render: function(data) {
                         return `<a href="${baseUrl}admin/movie/${data}"><i class="fa-solid fa-pencil"></i></a>`;
+                    }
+                },
+                {
+                    data: 'id',
+                    sortable: false,
+                    render: function (data, type, row) {
+                        return (row.deleted_at === null ?
+                            `<a title="Désactiver la salle" href="${baseUrl}admin/movie/deactivate/${row.id}"><i class="fa-solid fa-xl fa-toggle-on text-success"></i></a>` : `<a title="Activer le film" href="${baseUrl}admin/movie/activate/${row.id}"><i class="fa-solid fa-toggle-off fa-xl text-danger"></i></a>`);
                     }
                 }
             ]

@@ -55,7 +55,7 @@
                     sortable: false,
                     render: function (data, type, row) {
                         return (row.deleted_at === null ?
-                            `<a title="Désactiver la salle" href="${baseUrl}admin/salle/deactivate/${row.id}"><i class="fa-solid fa-xl fa-toggle-on text-success"></i></a>` : `<a title="Activer la salle"href="${baseUrl}admin/salle/activate/${row.id}"><i class="fa-solid fa-toggle-off fa-xl text-danger"></i></a>`);
+                            `<a title="Désactiver la salle" href="${baseUrl}admin/salle/deactivate/${row.id}"><i class="fa-solid fa-xl fa-toggle-on text-success"></i></a>` : `<a title="Activer la salle" href="${baseUrl}admin/salle/activate/${row.id}"><i class="fa-solid fa-toggle-off fa-xl text-danger"></i></a>`);
                     }
                 }
 
