@@ -10,9 +10,9 @@ class MovieModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['title', 'release_date', 'duration', 'rating', 'slug', 'description'];
+    protected $allowedFields = ['title', 'release_date', 'duration', 'rating', 'slug', 'description','deleted_at'];
 
-
+    protected $useSoftDeletes = true;
     // Champs de gestion des dates
 
     public function getMovieById($id)
@@ -21,6 +21,16 @@ class MovieModel extends Model
         $builder->select("movies.*, media.file_path as affiche_url");
         $builder->join("media", "media.entity_id = movies.id", "left");
         return $this->find($id);
+    }
+    public function activateMovie($id) {
+        $builder = $this->builder();
+        $builder->set('deleted_at', NULL);
+        $builder->where('id', $id);
+        return $builder->update();
+    }
+    public function deleteMovie($id)
+    {
+        return $this->delete($id);
     }
 
 

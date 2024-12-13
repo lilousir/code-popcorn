@@ -86,7 +86,6 @@
                                          style="display: <?= isset($utilisateur['avatar_url']) ? "block" : "none" ?>; max-width: 100px;"
                                          src="<?= $profileImageUrl ?>">
                                 </div>
-
                                 <input class="form-control" type="file" name="profile_image" id="image">
                             </div>
                         </div>

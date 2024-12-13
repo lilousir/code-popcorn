@@ -166,8 +166,25 @@ class Movie extends BaseController
 
 
     }
+    public function getdeactivate($id){
+        $mm = Model('MovieModel');
+        if ($mm->deleteMovie($id)) {
+            $this->success("film  désactivé");
+        } else {
+            $this->error("film  non désactivé");
+        }
+        $this->redirect('/admin/movie');
+    }
 
-
+    public function getactivate($id){
+        $mm = Model('MovieModel');
+        if ($mm->activateMovie($id)) {
+            $this->success("film activé");
+        } else {
+            $this->error("film non activé");
+        }
+        $this->redirect('/admin/movie');
+    }
 
 
 

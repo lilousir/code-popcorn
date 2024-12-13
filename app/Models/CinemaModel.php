@@ -22,6 +22,13 @@ class CinemaModel extends Model
         return $this->paginate($perPage);
     }
 
+    public function getAlltheater()
+    {
+        $this->select("theater.*, media.file_path as photo_url");
+        $this->join("media", "media.entity_id = theater.id AND media.entity_type = 'theater'", "left");
+        return $this->findAll();
+    }
+
     public function getTheatersById($id)
     {
         $builder = $this->builder();

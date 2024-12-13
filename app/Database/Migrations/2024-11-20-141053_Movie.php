@@ -37,6 +37,10 @@ class Movie extends Migration
             'description' => [
                 'type' => 'TEXT',
             ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ]
 
         ]);
 

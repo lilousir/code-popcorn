@@ -51,7 +51,7 @@
             </div>
         <?php else: ?>
             <div class="alert alert-info" role="alert">
-                Le film que vous souhaitez consulter n'existe pas ou n'est pas accessible.
+                Le cinéma que vous souhaitez consulter n'existe pas ou n'est pas accessible.
             </div>
         <?php endif; ?>
     </div>

@@ -45,8 +45,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li class="p-2"><img class="img-thumbnail mx-auto d-block" height="80px" src="<?= base_url($user->getProfileImage()); ?>"></li>
-                        <li><a class="dropdown-item" href="<?= base_url('/admin/user/'); ?><?= $user->id; ?>"><i class="fa-solid fa-pencil me-2"></i>Mon profil</a></li>
-                        <li><a class="dropdown-item" href="<?= base_url('/collection');?>"><i class="fa-brands fa-raspberry-pi me-2"></i>Mes achats</a></li>
+                        <li><a class="dropdown-item" href="<?= base_url('user/'); ?><?= $user->id; ?>"><i class="fa-solid fa-pencil me-2"></i>Mon profil</a></li>
 
                         <li><a class="dropdown-item" href="<?= base_url('/login/logout');?>"><i class="fa-solid fa-right-from-bracket me-2"></i>Déconnexion</a></li>
 

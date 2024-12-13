@@ -20,11 +20,8 @@ class SalleModel extends Model
     public function getAllsalle (){
         return $this->findAll();
     }
-    public function activateSalle($id) {
-        $builder = $this->builder();
-        $builder->set('deleted_at', NULL);
-        $builder->where('id', $id);
-        return $builder->update();
+    public function getSalleById($id){
+        return $this->find($id);
     }
 
     public function getPaginatedSalle($start, $length, $searchValue, $orderColumnName, $orderDirection)
@@ -55,6 +52,7 @@ class SalleModel extends Model
     }
 
 
+
     public function getFilteredSalle($searchValue)
     {
         $builder = $this->builder();
@@ -67,6 +65,13 @@ class SalleModel extends Model
 
         return $builder->countAllResults();
     }
+    public function activateSalle($id) {
+        $builder = $this->builder();
+        $builder->set('deleted_at', NULL);
+        $builder->where('id', $id);
+        return $builder->update();
+    }
+
 
     public function deleteSalle($id)
     {
