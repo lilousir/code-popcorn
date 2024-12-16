@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col">
         <form action="<?= isset($salle) ? base_url("/admin/salle/update") : base_url("/admin/salle/create") ?>" method="POST" enctype="multipart/form-data">
+            <?php if (isset($salle)): ?>
+                <input type="hidden" name="id" value="<?= $salle['id']; ?>">
+            <?php endif; ?>
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">
@@ -60,7 +63,7 @@
                     <?= isset($salle) ? "Sauvegarder" : "Enregistrer" ?>
                 </button>
             </div>
+         </div>
+     </form>
     </div>
-    </form>
-</div>
 </div>
