@@ -83,7 +83,7 @@ class Salle extends BaseController
         // Vérifier si l'identifiant (id) est présent dans les données
         if (!isset($data['id']) || empty($data['id'])) {
             // Gérer le cas où l'ID est manquant
-            return redirect()->to("/admin/salle")->with('error', 'Identifiant de la salle manquant.');
+            $this->redirect("/admin/salle")->with('error', 'Identifiant de la salle manquant.');
         }
 
         // Effectuer la mise à jour avec le modèle
@@ -92,10 +92,10 @@ class Salle extends BaseController
         // Vérifier si la mise à jour a réussi
         if ($isUpdated) {
             // Rediriger avec un message de succès
-            return redirect()->to("/admin/salle")->with('success', 'La salle a été mise à jour avec succès.');
+            $this->redirect("/admin/salle")->with('success', 'La salle a été mise à jour avec succès.');
         } else {
             // Rediriger avec un message d'erreur
-            return redirect()->to("/admin/salle")->with('error', 'Une erreur est survenue lors de la mise à jour.');
+            $this->redirect("/admin/salle")->with('error', 'Une erreur est survenue lors de la mise à jour.');
         }
     }
 
