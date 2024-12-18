@@ -57,10 +57,10 @@ class MovieModel extends Model
 
     }
 
-    public function searchItemsByName($searchValue, $limit = 10)
+    public function searchMovieByName($searchValue, $limit = 10)
     {
-        return $this->select('id, name, slug')
-            ->like('name', $searchValue)
+        return $this->select('id, title, slug')
+            ->like('title', $searchValue)
             ->limit($limit)
             ->findAll();
     }
@@ -96,7 +96,19 @@ class MovieModel extends Model
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
         $builder->join("media", "media.entity_id = movies.id", "left");
-        return $this->get()->getResultArray();
+
+        if (!empty($searchValue)) {
+            $builder->like('title', $searchValue);
+        }
+
+        // Tri
+        if ($orderColumnName && $orderDirection) {
+            $builder->orderBy($orderColumnName, $orderDirection);
+        }
+
+        $builder->limit($length, $start);
+
+        return $builder->get()->getResultArray();
     }
 
     // Obtenir le nombre total de cinémas
