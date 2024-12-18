@@ -67,11 +67,11 @@
                 </div>
 
                 <div class="card-footer text-end">
-                    <?php if (isset($utilisateur)): ?>
-                        <input type="hidden" name="id" value="<?= htmlspecialchars($utilisateur['id']); ?>">
+                    <?php if (isset($user)): ?>
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']); ?>">
                     <?php endif; ?>
                     <button type="submit" class="btn btn-primary">
-                        <?= isset($utilisateur) ? "Sauvegarder" : "Enregistrer" ?>
+                        <?= isset($user) ? "Sauvegarder" : "Enregistrer" ?>
                     </button>
                 </div>
             </div>
