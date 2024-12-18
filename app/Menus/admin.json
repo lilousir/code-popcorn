@@ -40,7 +40,7 @@
       },
       "seance": {
         "title": "Séance",
-        "url": "admin/seance",
+        "url": "admin/showing",
         "icon": "<i class=\"nav-icon fa-solid fa-couch\" style=\"color: #24385c;\"></i>"
 
       }

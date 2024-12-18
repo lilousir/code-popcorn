@@ -39,6 +39,12 @@
                                 <label for="email" class="form-label">email</label>
                                 <input type="email" class="form-control" id="email" placeholder="email" value="<?= isset($cinema) ? $cinema['email'] : ""; ?>" name="email">
                             </div>
+                            <div>
+                            <label for="city" class="form-label">City</label>
+                            <select id="search-city-head" class="form-control me-2"  name="id_city">ville</select>
+                        </div>
+
+
                             <div class="mb-3 d-flex align-items-center">
                                 <label for="image" class="form-label me-2">Image du cinéma</label>
                                 <div id="preview">

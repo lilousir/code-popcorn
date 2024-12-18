@@ -44,7 +44,6 @@ class Film extends BaseController
 
 
 
-
     public function getautocompleteMovie() {
         $searchValue = $this->request->getGet('q');
 
@@ -58,7 +57,7 @@ class Film extends BaseController
         foreach ($movies as $movie) {
             $results[] = [
                 'id' => $movie['slug'],
-                'text' => $movie['name']
+                'text' => $movie['title']
             ];
         }
 

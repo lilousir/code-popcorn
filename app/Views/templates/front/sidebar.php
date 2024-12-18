@@ -36,7 +36,7 @@
                 } ?>
             </ul>
         </div>
-        <select id="search-item-head" class="form-control me-2" name="item"></select>
+        <select id="search-movie-head" class="form-control me-2" name="title"></select>
         <?php if (isset($user)) { ?>
             <div class="navbar-nav d-flex">
                 <li class="nav-item dropdown">
