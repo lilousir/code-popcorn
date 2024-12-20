@@ -187,7 +187,6 @@ class Movie extends BaseController
     }
 
 
-
     public function postSearchMovies()
     {
         $MovieModel = model('App\Models\MovieModel');
@@ -212,6 +211,80 @@ class Movie extends BaseController
 
         // Obtenez le nombre total de lignes filtrées pour la recherche
         $filteredRecords = $MovieModel-> getFilteredMovie($searchValue);
+
+
+        $result = [
+            'draw'            => $draw,
+            'recordsTotal'    => $totalRecords,
+            'recordsFiltered' => $filteredRecords,
+            'data'            => $data,
+        ];
+        return $this->response->setJSON($result);
+    }
+
+    public function getcategory()
+    {
+        $c = model("CategoryModel");
+        $category = $c->getAllCategory();
+        return $this->view('admin/category/category', ['category' => $category], true);
+    }
+    public function postcreatecategory() {
+        $data = $this->request->getPost();
+        $gm = Model('CategoryModel');
+        if ($gm->createCategory($data)) {
+            $this->success('Category ajouté');
+        } else {
+            $this->error('Category non ajouté');
+        }
+        $this->redirect('/admin/movie/category');
+    }
+    public function gettotalmoviebycategory() {
+        $id = $this->request->getGet("id");
+        $igim = model('CategoryMovieModelModel');
+        return json_encode($igim->getTotalMovieByCategoryId($id));
+    }
+
+    public function postupdatecategory() {
+        $data = $this->request->getPost();
+
+        $ibm = Model('CategoryModel');
+        $ibm->updateCategory($data['id'], $data);
+        return json_encode($ibm->getCategoryById($data['id']));
+    }
+    public function getdeletecategory($id) {
+        $cm = model("CategoryModel");
+        if ($cm->deleteCategory($id)) {
+            $this->success("Category supprimé");
+        } else {
+            $this->error("Category non supprimé");
+        }
+        return $this->redirect('/admin/movie/category');
+    }
+
+    public function postsearchcategory()
+    {
+        $categoryModel = model('App\Models\CategoryModel');
+
+        // Paramètres de pagination et de recherche envoyés par DataTables
+        $draw        = $this->request->getPost('draw');
+        $start       = $this->request->getPost('start');
+        $length      = $this->request->getPost('length');
+        $searchValue = $this->request->getPost('search')['value'];
+
+        // Obtenez les informations sur le tri envoyées par DataTables
+        $orderColumnIndex = $this->request->getPost('order')[0]['column'] ?? 0;
+        $orderDirection = $this->request->getPost('order')[0]['dir'] ?? 'asc';
+        $orderColumnName = $this->request->getPost('columns')[$orderColumnIndex]['data'] ?? 'id';
+
+
+        // Obtenez les données triées et filtrées
+        $data = $categoryModel-> getPaginatedCategory($start, $length, $searchValue, $orderColumnName, $orderDirection);
+
+        // Obtenez le nombre total de lignes sans filtre
+        $totalRecords = $categoryModel-> getTotalCategory();
+
+        // Obtenez le nombre total de lignes filtrées pour la recherche
+        $filteredRecords = $categoryModel-> getFilteredCategory($searchValue);
 
 
         $result = [
