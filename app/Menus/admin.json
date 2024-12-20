@@ -31,10 +31,14 @@
         "icon": "<i class=\"nav-icon fa-solid fa-ticket fa-rotate-180\" style=\"color: #0c256e;\"></i>"
 
       },
+      "categori": {
+        "title": "Catégorie",
+        "url": "admin/movie/category",
+        "icon": "<i class=\"nav-icon fa-solid fa-film\" style=\"color: #0c256e;\"></i>"
+      },
       "salle": {
         "title": "Salle",
         "url": "admin/salle",
-
         "icon": "<i class=\"nav-icon fa-solid fa-film\" style=\"color: #0c256e;\"></i>"
 
       },
