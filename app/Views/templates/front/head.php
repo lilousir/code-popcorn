@@ -57,6 +57,7 @@
     <!-- CSS-->
     <link rel="stylesheet" href="<?= base_url('/css/toastr.min.css') ?>">
 </head>
+<!-- change la couleur du fond -->
 <body style="margin-top:70px; background-color: #2f1b0c;">
 
 <?php if (isset($menus)) {

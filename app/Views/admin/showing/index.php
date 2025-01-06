@@ -14,7 +14,7 @@
                 <th>Version</th>
                 <th>Type</th>
                 <th>Film</th>
-                <th>Modifier</th>
+
                 <th>active</th>
 
             </tr>
@@ -37,7 +37,7 @@
                 url: baseUrl + 'js/datatable/datatable-2.1.4-fr-FR.json',
             },
             "ajax": {
-                "url": baseUrl + "admin/showing/searchshowing",
+                "url": baseUrl + "admin/showing/SearchShowing",
                 "type": "POST"
             },
             "columns": [
@@ -45,15 +45,9 @@
                 {"data": "date"},
                 {"data": "description"},
                 {"data": "version"},
-                {"data": "name"},
-                {"data": "title"},
-                {
-                    data : 'id',
-                    sortable : false,
-                    render : function(data) {
-                        return `<a href="${baseUrl}admin/showing/${data}"><i class="fa-solid fa-pencil"></i></a>`;
-                    }
-                },
+                {"data": "id_type_showing"},
+                {"data": "id_movie"},
+
                 {
                     data: 'id',
                     sortable: false,

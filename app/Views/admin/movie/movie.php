@@ -32,8 +32,6 @@
                                         name="description"
                                         placeholder="Entrez une description"
                                         rows="5"><?= isset($movie['description']) ? htmlspecialchars($movie['description']) : ""; ?></textarea>
-
-                                
                             </div>
 
                             <div class="mb-3">

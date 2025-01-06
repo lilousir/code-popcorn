@@ -32,10 +32,11 @@ class Film extends BaseController
 
         // Récupère un film par son slug
         $movie = $mm->getMovieBySlug($slug);
-
+        $cinema = model("CinemaModel")->getAlltheater();
+        $showing = model("ShowingModel")->getShowingByMovieSlug($slug);
         if($movie){
         return $this->view('film/film', [
-            'movie' => $movie,
+            'movie' => $movie, 'cinema' => $cinema, 'showing'=> $showing
 
         ]);
         }

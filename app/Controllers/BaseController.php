@@ -266,6 +266,8 @@ abstract class BaseController extends Controller
                 'breadcrumb' => $this->breadcrumb,
                 'localmenu' => $this->menu,
                 'user' => ($this->session->user ?? null),
+                'theaters' => model('CinemaModel')->getAllTheater(),
+                'theater' => ($this->session->theater ?? null),
                 'menus' => $this->menus($admin),
                 'title' => sprintf('%s : %s', $this->title, $this->title_prefix),
             ])
