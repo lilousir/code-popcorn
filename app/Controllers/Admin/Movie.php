@@ -137,7 +137,7 @@ class Movie extends BaseController
                 ];
 
                 // Utiliser la fonction upload_file() pour gérer l'upload et enregistrer les données du média
-                $uploadResult = upload_file($file, 'affiche', $data['title'], $mediaData, true, ['image/jpeg', 'image/png','image/jpg']);
+                $uploadResult = upload_file($file, 'affiche', $data['title'], $mediaData, false, ['image/jpeg', 'image/png','image/jpg']);
 
                 // Vérifier le résultat de l'upload
                 if (is_array($uploadResult) && $uploadResult['status'] === 'error') {

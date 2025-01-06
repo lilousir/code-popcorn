@@ -38,11 +38,20 @@ class Showing extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
+            'id_auditorium' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+            ]
         ]);
 
         $this->forge->addKey('id', true); // Clé primaire
         $this->forge->addForeignKey('id_movie', 'movies', 'id', 'CASCADE', 'CASCADE'); // Clé étrangère
         $this->forge->addForeignKey('id_type_showing', 'type_showing', 'id', 'CASCADE', 'CASCADE'); // Clé étrangère
+        $this->forge->addForeignKey('id_auditorium', 'auditorium', 'id', 'CASCADE', 'CASCADE'); // Clé étrangère
 
         $this->forge->createTable('showing');
     }

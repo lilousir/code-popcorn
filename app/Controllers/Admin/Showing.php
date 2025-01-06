@@ -7,12 +7,57 @@ use App\Controllers\BaseController;
 class Showing extends BaseController
 {
 
-    public function getindex(){
+    public function getindex($id = null){
 
-        $showing = model('ShowingModel')->getAllShowing();
-        return $this->view('admin/showing/index',['showing' => $showing], true);
+        $sm = model('ShowingModel');
+
+        if ($id == null){
+            $showing = $sm->findAll();
+
+            return $this->view('admin/showing/index',['showing' => $showing], true);
+        } else {
+            $showing = model('ShowingModel')->getAllShowing();
+            $movies = model('MovieModel')->getAllMovies();
+            if ($id == "new"){
+                return $this->view('admin/showing/showing', ['showing' => $showing, 'movies'=> $movies], true);
+            }
+
+            $showing = $sm->getShowingById($id);
+           if ($showing){
+             return $this->view("/admin/showing/showing", ['showing' => $showing], true);
+           } else {
+               // Si le cinéma avec cet ID n'existe pas, affiche un message d'erreur
+               $this->error("L'ID de la séance n'existe pas");
+
+               // Redirige l'utilisateur vers la liste des cinémas
+               $this->redirect("/admin/showing");
+           }
+        }
+
     }
-    public function postsearchshowing()
+
+    public function postcreate()
+    {
+        $data = $this->request->getPost();
+        $sm = Model("ShowingModel");
+
+        // Créer l'utilisateur et obtenir son ID
+        $newShowingId = $sm->createShowing($data);
+
+        // Vérifier si la création a réussi
+        if ($newShowingId) {
+            $this->success("La séance à bien été ajouté.");
+            $this->redirect("/admin/showing");
+        } else {
+            $errors = $sm->errors();
+            foreach ($errors as $error) {
+                $this->error($error);
+                $this->redirect("/admin/showing/new");
+            }
+
+        }
+    }
+    public function postSearchShowing()
     {
         $showingModel = model('App\Models\ShowingModel');
 
@@ -48,23 +93,22 @@ class Showing extends BaseController
     }
     public function getdeactivate($id){
         $sm = Model('ShowingModel');
-        if ($sm->deleteSalle($id)) {
-            $this->success("Salle désactivé");
+        if ($sm->deleteShowing($id)) {
+            $this->success("Séance désactivé");
         } else {
-            $this->error("Salle non désactivé");
+            $this->error("Séance non désactivé");
         }
-        $this->redirect('/admin/salle');
+        $this->redirect('/admin/showing');
     }
 
     public function getactivate($id){
         $sm = Model('ShowingModel');
-        if ($sm->activateSalle($id)) {
-            $this->success("Salle activé");
+        if ($sm->activateShowing($id)) {
+            $this->success("Séance activé");
         } else {
-            $this->error("Salle non activé");
+            $this->error("Séance non activé");
         }
-        $this->redirect('/admin/salle');
+        $this->redirect('/admin/showing');
     }
-
 
 }

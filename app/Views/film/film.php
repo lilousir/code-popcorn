@@ -18,20 +18,69 @@
                                  style="display: <?= isset($movie['affiche_url']) ? "block" : "none" ?>; max-width: 100%;"
                                  src="<?= base_url($movie['affiche_url']) ?>">
                         </div>
-                        <div class="col-md-6">
-                            <div class="card p-3">
+                        <div class="col-md-7">
+                            <div class="card ">
 
                                 <div
                                         class="card-header d-flex justify-content-center align-items-center text-center text-dark"
                                         style="background-color: #556b2f; color: white; font-weight: bold; padding: 15px; font-size: 24px;">
                                     Séance
                                 </div>
-                                        Dans une contrée lointaine, nichée entre des montagnes majestueuses et des vallées verdoyantes, un petit village prospérait dans la paix et l'harmonie. Les habitants vivaient en communion avec la nature, cultivant leurs champs et élevant leurs animaux avec soin.
+                                 <div>
+                                     <div class="card-body">
+                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                             <li class="nav-item" role="presentation">
+                                                 <button class="nav-link active" id="lundi-tab" data-bs-toggle="tab" data-bs-target="#lundi-pane" type="button" role="tab" aria-controls="lundi" aria-selected="true">Lundi</button>
+                                             </li>
+                                             <li class="nav-item" role="presentation">
+                                                 <button class="nav-link" id="mardi-tab" data-bs-toggle="tab" data-bs-target="#mardi-pane" type="button" role="tab" aria-controls="mardi" aria-selected="false">Mardi</button>
+                                             </li>
+                                             <li class="nav-item" role="presentation">
+                                                 <button class="nav-link" id="mercredi-tab" data-bs-toggle="tab" data-bs-target="#mercredi-pane" type="button" role="tab" aria-controls="mercredi" aria-selected="false">Mercredi</button>
+                                             </li>
+                                             <li class="nav-item" role="presentation">
+                                                 <button class="nav-link" id="jeudi-tab" data-bs-toggle="tab" data-bs-target="#jeudi-pane" type="button" role="tab" aria-controls="jeudi" aria-selected="false">Jeudi</button>
+                                             </li>
+                                             <li class="nav-item" role="presentation">
+                                                 <button class="nav-link" id="vendredi-tab" data-bs-toggle="tab" data-bs-target="#vendredi-pane" type="button" role="tab" aria-controls="vendredi" aria-selected="false">Vendredi</button>
+                                             </li>
+                                             <li class="nav-item" role="presentation">
+                                                 <button class="nav-link" id="samedi-tab" data-bs-toggle="tab" data-bs-target="#samedi-pane" type="button" role="tab" aria-controls="samedi" aria-selected="false">Samedi</button>
+                                             </li>
+                                             <li class="nav-item" role="presentation">
+                                                 <button class="nav-link" id="dimanche-tab" data-bs-toggle="tab" data-bs-target="#dimanche-pane" type="button" role="tab" aria-controls="dimanche" aria-selected="false">Dimanche</button>
+                                             </li>
+                                         </ul>
+                                         <!-- Tab panes -->
+                                         <div class="tab-content border p-3">
+                                             <div class="tab-pane fade show active" id="lundi-pane" role="tabpanel" aria-labelledby="lundi-tab" tabindex="0">
 
-                                        Cependant, une menace sourde pesait sur leur avenir. Une légende ancienne racontait qu'un dragon endormi dans les montagnes pourrait se réveiller, semant la terreur et le chaos. Les anciens du village avaient mis en garde les plus jeunes : il ne fallait jamais déranger le sommeil du gardien des cimes.
+                                             </div>
+                                             <div class="tab-pane fade" id="mardi-pane" role="tabpanel" aria-labelledby="mardi-tab" tabindex="0">
+                                                 2
 
-                                        Un jour, un jeune garçon du village, curieux et intrépide, décida d'explorer les grottes des montagnes. Il était attiré par les récits des anciens et rêvait de percer le mystère du dragon. Armé de courage et d'une simple lampe, il s'aventura dans l'obscurité.
-                             </div>
+                                             </div>
+                                             <div class="tab-pane fade" id="mercredi-pane" role="tabpanel" aria-labelledby="mercredi-tab" tabindex="0">
+                                                3
+                                             </div>
+                                             <div class="tab-pane fade" id="jeudi-pane" role="tabpanel" aria-labelledby="jeudi-tab" tabindex="0">
+                                                4
+                                             </div>
+                                             <div class="tab-pane fade" id="vendredi-pane" role="tabpanel" aria-labelledby="vendredi-tab" tabindex="0">
+                                                 5
+                                             </div>
+                                             <div class="tab-pane fade" id="samedi-pane" role="tabpanel" aria-labelledby="samedi-tab" tabindex="0">
+                                                 6
+                                             </div>
+                                             <div class="tab-pane fade" id="dimanche-pane" role="tabpanel" aria-labelledby="dimanche-tab" tabindex="0">
+                                                 7
+                                             </div>
+                                         </div>
+
+
+                                     </div>
+                               </div>
+                            </div>
                         </div>
                         <!-- Colonne pour le texte -->
                         <div class="col-15">

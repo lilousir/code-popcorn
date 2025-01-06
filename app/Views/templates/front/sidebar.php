@@ -17,6 +17,7 @@
                                 <?= $menu['title'] ?>
                             </a>
                         </li>
+
                     <?php } else { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,10 +33,20 @@
                                 <?php } ?>
                             </ul>
                         </li>
+
                     <?php }
                 } ?>
             </ul>
+
         </div>
+        <form class="theaters-id" method="POST" id="formTheater" action="<?= base_url("cinema/cinema"); ?>">
+            <select class="form-select-sm me-2" name="theater_id" id="theater_id">
+                <option value="">Aucun Cinéma Sélectionné</option>
+                <?php foreach($theaters as $t){ ?>
+                    <option value="<?= $t['id']; ?>" <?= isset($theater) && $theater['id']==$t['id'] ? "selected" : ""; ?>><?= $t['name']; ?></option>
+                <?php } ?>
+            </select>
+        </form>
         <select id="search-movie-head" class="form-control me-2" name="title"></select>
         <?php if (isset($user)) { ?>
             <div class="navbar-nav d-flex">
@@ -52,6 +63,7 @@
 
                     </ul>
                 </li>
+
             </div>
 
             <?php } else { ?>

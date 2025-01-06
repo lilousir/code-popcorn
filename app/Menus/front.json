@@ -8,8 +8,8 @@
         "title": "Liste des films",
         "url": "film/"
       },
-      "film": {
-        "title": "Film du moment",
+      "seance": {
+        "title": "Horaire",
         "url": ""
       }
     }

@@ -10,14 +10,7 @@ class MovieSeeder extends Seeder
     {
         $data = [
 
-                [
-                    "title" => "Avengers",
-                    "release_date" => "2012-04-25",
-                    "duration" => "143",
-                    "rating" => "Tous publics",
-                    "description" => "Lorsque Nick Fury, le directeur du S.H.I.E.L.D., l'organisation qui préserve la paix au plan mondial, cherche à former une équipe de choc pour empêcher la destruction du monde, Iron Man, Hulk, Thor, Captain America, Hawkeye et Black Widow répondent présents.",
-                    "slug" => "avengers"
-                ],
+
                 [
                     "title" => "Harry Potter à l'école des sorciers",
                     "release_date" => "2001-12-05",
@@ -84,6 +77,14 @@ class MovieSeeder extends Seeder
                         "slug" => "harry-potter-et-les-reliques-de-la-mort-partie-2"
                     ],
                     [
+                        "title" => "Avengers",
+                        "release_date" => "2012-04-25",
+                        "duration" => "143",
+                        "rating" => "Tous publics",
+                        "description" => "Lorsque Nick Fury, le directeur du S.H.I.E.L.D., l'organisation qui préserve la paix au plan mondial, cherche à former une équipe de choc pour empêcher la destruction du monde, Iron Man, Hulk, Thor, Captain America, Hawkeye et Black Widow répondent présents.",
+                        "slug" => "avengers"
+                    ],
+                    [
                         "title" => "Avengers L'ère d'Ultron",
                         "release_date" => "2015-04-22",
                         "duration" => "141",
@@ -116,8 +117,6 @@ class MovieSeeder extends Seeder
                         "slug" => "spider-man"
                     ],
 
-
-
                     [
                         "title" => "Spider-Man 2",
                         "release_date" => "2004-07-14",
@@ -131,7 +130,7 @@ class MovieSeeder extends Seeder
                         "release_date" => "2007-05-01",
                         "duration" => "139",
                         "rating" => "Tous publics",
-                        "description" => "",
+                        "description" => "Peter Parker a enfin réussi à concilier son amour pour Mary-Jane et ses devoirs de super-héros. Mais l'horizon s'obscurcit. La brutale mutation de son costume, qui devient noir, décuple ses pouvoirs et transforme également sa personnalité pour laisser ressortir l'aspect sombre et vengeur que Peter s'efforce de contrôler",
                         "slug" => "spider-man-3"
                     ],
                     [
@@ -364,20 +363,20 @@ class MovieSeeder extends Seeder
                 ],
                 [
                 "title" => "Blanche-Neige et les Sept Nains",
-            "release_date" => "1938-05-04",
-            "duration" => "83",
-            "rating" => "Tous publics",
-            "description" => "La douce Blanche-Neige, poursuivie par sa belle-mère jalouse, trouve refuge chez sept nains adorables qui l'aident à échapper à la méchante reine.",
-            "slug" => "blanche-neige-et-les-sept-nains"
-        ],
-    [
-        "title" => "La Belle au bois dormant",
-        "release_date" => "1959-07-29",
-        "duration" => "75",
-        "rating" => "Tous publics",
-        "description" => "Maudite par la sorcière Maléfique, la princesse Aurore sombre dans un sommeil profond jusqu'à ce qu'un prince courageux brise le sort avec un baiser d'amour véritable.",
-        "slug" => "la-belle-au-bois-dormant"
-    ],
+                "release_date" => "1938-05-04",
+                "duration" => "83",
+                "rating" => "Tous publics",
+                "description" => "La douce Blanche-Neige, poursuivie par sa belle-mère jalouse, trouve refuge chez sept nains adorables qui l'aident à échapper à la méchante reine.",
+                "slug" => "blanche-neige-et-les-sept-nains"
+                 ],
+            [
+                "title" => "La Belle au bois dormant",
+                "release_date" => "1959-07-29",
+                "duration" => "75",
+                "rating" => "Tous publics",
+                "description" => "Maudite par la sorcière Maléfique, la princesse Aurore sombre dans un sommeil profond jusqu'à ce qu'un prince courageux brise le sort avec un baiser d'amour véritable.",
+                "slug" => "la-belle-au-bois-dormant"
+            ],
     [
         "title" => "Cendrillon",
         "release_date" => "1950-12-14",

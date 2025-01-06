@@ -18,9 +18,6 @@ class Salle extends BaseController
         if ($id == null) {
             // Si aucun ID n'est fourni, récupère tous les cinémas
             $salle = $sm->findAll();
-
-
-
             // Renvoie la vue listant les cinémas en passant les données récupérées
             return $this->view("/admin/salle/index.php", ['salle' => $salle], true);
         } else {

@@ -15,11 +15,15 @@ class MovieModel extends Model
     protected $useSoftDeletes = true;
     // Champs de gestion des dates
 
+
+    public function getAllMovies(){
+        return $this->findAll();
+    }
+
     public function getMovieById($id)
     {
-        $builder = $this->builder();
-        $builder->select("movies.*, media.file_path as affiche_url");
-        $builder->join("media", "media.entity_id = movies.id", "left");
+        $this->select("movies.*, media.file_path as affiche_url");
+        $this->join("media", "media.entity_id = movies.id and media.entity_type = 'movie' ", "left");
         return $this->find($id);
     }
     public function activateMovie($id) {
@@ -38,7 +42,7 @@ class MovieModel extends Model
     {
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
-        $builder->join("media", "media.entity_id = movies.id", "left");
+        $builder->join("media", "media.entity_id = movies.id and media.entity_type = 'movie' ", "left");
         return $this->paginate($perPage);
     }
 
@@ -46,7 +50,7 @@ class MovieModel extends Model
     {
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
-        $builder->join("media", "media.entity_id = movies.id", "left");
+        $builder->join("media", "media.entity_id = movies.id and media.entity_type = 'movie' ", "left");
         return $this->where('slug', $slug)->get()->getRowArray();
     }
 
@@ -98,7 +102,8 @@ class MovieModel extends Model
     {
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
-        $builder->join("media", "media.entity_id = movies.id", "left");
+        $builder->join("media", "media.entity_id = movies.id and media.entity_type = 'movie' ", "left");
+
 
         if (!empty($searchValue)) {
             $builder->like('title', $searchValue);
@@ -119,7 +124,7 @@ class MovieModel extends Model
     {
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
-        $builder->join("media", "media.entity_id = movies.id", "left");
+        $builder->join("media", "media.entity_id = movies.id and media.entity_type = 'movie' ", "left");
         return $this->countAllResults();
     }
 
@@ -128,7 +133,7 @@ class MovieModel extends Model
     {
         $builder = $this->builder();
         $builder->select("movies.*, media.file_path as affiche_url");
-        $builder->join("media", "media.entity_id = movies.id", "left");
+        $builder->join("media", "media.entity_id = movies.id and media.entity_type = 'movie' ", "left");
 
         return $this->countAllResults();
     }
