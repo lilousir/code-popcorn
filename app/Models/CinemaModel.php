@@ -77,6 +77,11 @@ class CinemaModel extends Model
     // Obtenir le nombre total de cinémas
     public function getTotalCinema()
     {
+        $builder = $this->builder();
+        $builder->select("theater.*, media.file_path as photo_url");
+        $builder->join("media", "media.entity_id = theater.id AND media.entity_type = 'theater'", "left");
+        $builder->join('city', 'theater.id_city = city.id', 'left'); // Jointure avec la table city
+        $builder->select('theater.*, city.label'); // Sélectionner les champs nécessaires
         return $this->countAllResults();
     }
 
@@ -88,21 +93,7 @@ class CinemaModel extends Model
         $builder->join("media", "media.entity_id = theater.id AND media.entity_type = 'theater'", "left");
         $builder->join('city', 'theater.id_city = city.id', 'left');
 
-        // Filtrage
-        if (!empty($searchValue)) {
-            $builder->groupStart();
-            $builder->like('theater.name', $searchValue);
-            $builder->orLike('theater.email', $searchValue);
-            $builder->orLike('city.label', $searchValue);
-            $builder->groupEnd();
-        }
-
-        // Pagination
-        if ($limit !== null) {
-            $builder->limit($limit, $offset);
-        }
-
-        return $builder->get()->getResultArray(); // Retourne les données
+        return $this->countAllResults();
     }
 }
 

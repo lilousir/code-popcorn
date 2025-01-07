@@ -54,18 +54,42 @@ class Cinema extends BaseController
         // Créer l'utilisateur et obtenir son ID
         $newCinemaId = $cm->createCinema($data);
 
+
         // Vérifier si la création a réussi
         if ($newCinemaId) {
-            $this->success("Le cinema à bien été ajouté.");
-            $this->redirect("/admin/cinema");
-        } else {
-            $errors = $cm->errors();
-            foreach ($errors as $error) {
-                $this->error($error);
-                $this->redirect("/admin/cinema/new");
+            if ($newCinemaId) {
+                // Vérifier si des fichiers ont été soumis dans le formulaire
+                $file = $this->request->getFile('photo_image'); // 'profile_image' est le nom du champ dans le formulaire
+                if ($file && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                    // Préparer les données du média
+                    $mediaData = [
+                        'entity_type' => 'theater',
+                        'entity_id' => $newCinemaId,   // Utiliser le nouvel ID de l'utilisateur
+                    ];
+
+                    // Utiliser la fonction upload_file() pour gérer l'upload et les données du média
+                    $uploadResult = upload_file($file, 'theater', $data['name'], $mediaData);
+
+                    // Vérifier le résultat de l'upload
+                    if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
+                        // Afficher un message d'erreur détaillé et rediriger
+                        $this->error("Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message']);
+                        return $this->redirect("/admin/cinema/new");
+                    }
+                }
+                $this->success("Le film à bien été ajouté.");
+                $this->redirect("/admin/cinema");
+            } else {
+                $errors = $cm->errors();
+                foreach ($errors as $error) {
+                    $this->error($error);
+                    $this->redirect("/admin/cinema/new");
+                }
+
             }
 
         }
+
     }
     public function postupdate()
     {
