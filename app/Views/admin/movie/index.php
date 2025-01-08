@@ -57,9 +57,6 @@
                 {"data": "duration"},
                 {"data": "rating"},
 
-              
-
-
 
                 {
                     data: 'id',

@@ -119,7 +119,6 @@ class Movie extends BaseController
 
         // Vérifier si un fichier a été soumis dans le formulaire
 
-
         // Mise à jour des informations utilisateur dans la base de données
         if ($um->updateMovie($data['id'], $data)) {
             $file = $this->request->getFile('affiche_image'); // 'profile_image' est le nom du champ dans le formulaire
@@ -166,6 +165,9 @@ class Movie extends BaseController
 
 
     }
+
+
+
     public function getdeactivate($id){
         $mm = Model('MovieModel');
         if ($mm->deleteMovie($id)) {
