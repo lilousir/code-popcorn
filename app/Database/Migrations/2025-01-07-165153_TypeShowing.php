@@ -27,6 +27,6 @@ class TypeShowing extends Migration
 
     public function down()
     {
-      $this->forge->dropTable('type_showing');
+        $this->forge->dropTable('type_showing');
     }
 }

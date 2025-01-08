@@ -94,11 +94,14 @@ class ShowingModel extends Model
         return $builder->countAllResults();
     }
     public function activateShowing($id) {
-
-
-        $this->set('deleted_at', NULL);
-        $this->where('id', $id);
-        return $this->update();
+        $builder = $this->builder();
+        $builder->set('deleted_at', NULL);
+        $builder->where('id', $id);
+        return $builder->update();
+    }
+    public function deleteShowing($id)
+    {
+        return $this->delete($id);
     }
 
     public function createShowing($data)
@@ -107,9 +110,5 @@ class ShowingModel extends Model
     }
 
 
-    public function deleteShowing($id)
-    {
-        return $this->delete($id);
-    }
 
 }

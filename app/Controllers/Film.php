@@ -28,8 +28,6 @@ class Film extends BaseController
 
         }
 
-
-
         // Récupère un film par son slug
         $movie = $mm->getMovieBySlug($slug);
         $cinema = model("CinemaModel")->getAlltheater();
