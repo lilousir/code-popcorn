@@ -1,4 +1,3 @@
-
 <?php
 $router = service('router');
 $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName())));
@@ -13,6 +12,7 @@ $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName
             <div class="card-body">
                 <?php foreach(array_chunk($cinemas, 4) as $chunk) : // Diviser les éléments en groupes de 4 ?>
                     <div class="row shelf-row px-4 ">
+
                         <?php foreach($chunk as $cinemas) : ?>
                             <div class="col mb-3">
                                 <div class="card h-100">
