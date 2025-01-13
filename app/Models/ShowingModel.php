@@ -11,15 +11,14 @@ class ShowingModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['date', 'description', 'version','id_type_showing','id_movie','deleted_at'];
+    protected $allowedFields = ['date', 'description', 'version','id_movie','deleted_at'];
 
     protected $useSoftDeletes = true;
 
 
     public function getAllShowing(){
 
-        $this->select('showing.*, type_showing.name, movies.title');
-        $this->join('type_showing', 'type_showing.id = showing.id_type_showing', 'left');
+        $this->select('showing.*, movies.title');
         $this->join('movies', 'movies.id = showing.id_movie', 'left');
         return $this->get()->getResultArray();
 
@@ -37,8 +36,8 @@ class ShowingModel extends Model
     }
     public function getShowingById($id){
 
-        $this->select('showing.*, type_showing.name, movies.title');
-        $this->join('type_showing', 'type_showing.id = showing.id_type_showing','left');
+        $this->select('showing.*, movies.title');
+
         $this->join('movies', 'movies.id = showing.id_movie','left');
         return $this->where('showing.id', $id)->first();
     }
@@ -51,8 +50,7 @@ class ShowingModel extends Model
     public function getPaginatedShowing($start, $length, $searchValue, $orderColumnName, $orderDirection)
     {
         $builder = $this->builder();
-        $builder->select('showing.*, type_showing.name, movies.title');
-        $builder->join('type_showing', 'type_showing.id = showing.id_type_showing','left');
+        $builder->select('showing.*, movies.title');
         $builder->join('movies', 'movies.id = showing.id_movie','left');
         // Recherche
         if ($searchValue != null) {
@@ -81,8 +79,8 @@ class ShowingModel extends Model
     public function getFilteredShowing($searchValue)
     {
         $builder = $this->builder();
-        $builder->select('showing.*, type_showing.name, movies.title');
-        $builder->join('type_showing', 'type_showing.id = showing.id_type_showing','left');
+        $builder->select('showing.*, movies.title');
+        $builder->join('movies', 'movies.id = showing.id_movie','left');
         $builder->join('movies', 'movies.id = showing.id_movie','left');
 
         // @phpstan-ignore-next-line
@@ -106,6 +104,17 @@ class ShowingModel extends Model
 
     public function createShowing($data)
     {
+        // Vérification que le film existe dans la table `movies`
+        $movieModel = model('MovieModel');
+        if (!$movieModel->find($data['id_movie'])) {
+            return false; // Retourne false si le film n'existe pas
+        }
+        $salleModel = model('SalleModel');
+        if(!$salleModel->find($data['id_auditorium'])) {
+            return false;
+        }
+
+        // Insère la séance après validation
         return $this->insert($data);
     }
 

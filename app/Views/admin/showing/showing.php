@@ -16,12 +16,10 @@
                         <div class="tab-pane active" id="profil" role="tabpanel" aria-labelledby="profil-tab" tabindex="0">
                             <div class="mb-3">
                                 <label for="cinema" class="form-label">Film</label>
-                                <select class="form-select" id="movie" name="movie_id" required>
+                                <select class="form-select" name="id_movie" id="id_movie" required>
                                     <option value="">-- Sélectionnez un film --</option>
                                     <?php foreach ($movies as $movie): ?>
-                                        <option value="<?= htmlspecialchars($movie['id']) ?>">
-                                            <?= htmlspecialchars($movie['title']) ?>
-                                        </option>
+                                        <option value="<?= $movie['id'] ?>"><?= $movie['title'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -58,8 +56,15 @@
                                     <option value="-16">-16</option>
                                     <option value="-18">-18</option>
                                 </select>
-
-
+                            </div>
+                            <div class="mb-3">
+                                <label for="salle" class="form-label">Salle</label>
+                                <select class="form-select" name="id_auditorium" id="id_auditorium" required>
+                                    <option value="">-- Sélectionnez un film --</option>
+                                    <?php foreach ($salle as $s): ?>
+                                        <option value="<?= $s['id'] ?>"<?= isset($theater) && $theater['id']==$s['id'] ? "selected" : ""; ?>><?= $s['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="cinema" class="form-label">Cinéma</label>
@@ -71,14 +76,18 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="type-showing" class="form-label">Cinéma</label>
-                                <select class="form-select" name="theater_id" id="theater_id">
-                                    <option value="">Aucun Cinéma Sélectionné</option>
-                                    <?php foreach($theaters as $t){ ?>
-                                        <option value="<?= $t['id']; ?>" <?= isset($theater) && $theater['id']==$t['id'] ? "selected" : ""; ?>><?= $t['name']; ?></option>
-                                    <?php } ?>
+                                <label for="type_showing" class="form-label">Type de la séance</label>
+
+                                <select class="form-select" name="type_showing">
+                                    <option value="none" selected>Aucun</option>
+                                    <option value="Avant-Première">Avant-Première</option>
+                                    <option value="Séance spéciale">Séance spéciale</option>
+                                    <option value="Art et Culture">Art et Culture</option>
+                                    <option value="Séance normale">Séance normale</option>
+
                                 </select>
                             </div>
+
 
                         </div>
                     </div>
