@@ -16,7 +16,9 @@
                         <div class="tab-pane active" id="profil" role="tabpanel" aria-labelledby="profil-tab" tabindex="0">
                             <div class="mb-3">
                                 <label for="cinema" class="form-label">Film</label>
+
                                 <select class="form-select" name="id_movie" id="id_movie" required>
+
                                     <option value="">-- Sélectionnez un film --</option>
                                     <?php foreach ($movies as $movie): ?>
                                         <option value="<?= $movie['id'] ?>"><?= $movie['title'] ?></option>
@@ -76,6 +78,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
+
                                 <label for="type_showing" class="form-label">Type de la séance</label>
 
                                 <select class="form-select" name="type_showing">
@@ -88,6 +91,8 @@
                                 </select>
                             </div>
 
+
+                              
 
                         </div>
                     </div>
