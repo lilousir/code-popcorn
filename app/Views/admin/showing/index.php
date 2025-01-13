@@ -12,7 +12,6 @@
                 <th>Date et heure</th>
                 <th>Déscription</th>
                 <th>Version</th>
-                <th>Type</th>
                 <th>Film</th>
                 <th>active</th>
 
@@ -44,7 +43,7 @@
                 {"data": "date"},
                 {"data": "description"},
                 {"data": "version"},
-                {"data": "id_type_showing"},
+
                 {"data": "id_movie"},
 
                 {

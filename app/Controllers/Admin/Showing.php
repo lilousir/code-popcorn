@@ -18,6 +18,7 @@ class Showing extends BaseController
         } else {
             $showing = model('ShowingModel')->getAllShowing();
             $movies = model('MovieModel')->getAllMovies();
+
             if ($id == "new"){
                 return $this->view('admin/showing/showing', ['showing' => $showing, 'movies'=> $movies], true);
             }
