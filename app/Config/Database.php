@@ -27,9 +27,9 @@ class Database extends Config
     public array $production = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        'username'     => 'vipa0880_slilou',
+        'password'     => 'pxG&}0_[?$9L',
+        'database'     => 'vipa0880_projet_lilou',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -43,11 +43,7 @@ class Database extends Config
         'failover'     => [],
         'port'         => 3306,
         'numberNative' => false,
-        'dateFormat'   => [
-            'date'     => 'Y-m-d',
-            'datetime' => 'Y-m-d H:i:s',
-            'time'     => 'H:i:s',
-        ],
+
     ];
     /**
      * The local / dev database connection.
