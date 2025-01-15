@@ -9,7 +9,7 @@ class CityModel extends Model
 {
     protected $table = 'city';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['id', 'name', 'zip'];
+    protected $allowedFields = ['id', 'label', 'zip_code'];
 
     // Champs de gestion des dates
     protected $useTimestamps = false;
