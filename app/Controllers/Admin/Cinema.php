@@ -77,7 +77,7 @@ class Cinema extends BaseController
                         return $this->redirect("/admin/cinema/new");
                     }
                 }
-                $this->success("Le film à bien été ajouté.");
+                $this->success("Se cinema à bien été ajouté.");
                 $this->redirect("/admin/cinema");
             } else {
                 $errors = $cm->errors();
