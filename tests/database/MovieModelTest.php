@@ -4,9 +4,14 @@ namespace Tests\Models;
 
 use App\Models\MovieModel;
 use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\DatabaseTestTrait;
 
 class MovieModelTest extends CIUnitTestCase
 {
+    use DatabaseTestTrait;
+
+    protected $migrate = true; // Active la migration automatique
+    protected $seed = 'App\Database\Seeds\DatabaseSeeder'; // Active le seeder, si nécessaire
     protected $movieModel;
 
     protected function setUp(): void

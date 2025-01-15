@@ -8,9 +8,11 @@ use CodeIgniter\Test\DatabaseTestTrait;
 
 class UserModelTest extends CIUnitTestCase
 {
- use DatabaseTestTrait;
+    use DatabaseTestTrait;
+
     protected $migrate = true;
     protected $seed = 'App\Database\Seeds\DatabaseSeeder';
+    protected $UserModel;
     protected function setUp(): void
     {
         parent::setUp();
