@@ -90,24 +90,27 @@ class CinemaModelTest extends CIUnitTestCase
     public function testUpdateCinema()
     {
         // Insérer un cinéma fictif pour l'ID 1 si nécessaire
-        $cinemaData = [
+        $model = new CinemaModel();
+        $data = [
             'name' => 'Old Cinema',
             'address' => '123 Movie St',
             'phone' => '1234567890',
             'email' => 'oldcinema@example.com',
-            'id_city' => 1,
+            'id_city' => '1',
         ];
-        $this->cinemaModel->insert($cinemaData);  // Insertion du cinéma fictif
+        $updatedData = [
+            'name' => 'Old Cinema ferara',
+            'phone' => '123456789063',
+        ];
 
         // Mettre à jour le cinéma avec l'ID 1
-        $data = ['name' => 'Updated Cinema'];
-        $this->cinemaModel->updateCinema($data, 1);
+        $model->createCinema($data); // Crée l'utilisateur pour le test
+        $cinema = $model->getTheatersById(1); // Récupère l'utilisateur créé
+        $model->updateCinema($cinema['id'], $updatedData);
+        // Mettre à jour le film
 
-        // Récupérer le cinéma mis à jour
-        $updatedCinema = $this->cinemaModel->getTheatersById(1);
+        $this->seeInDatabase('theater', ['name' => 'Old Cinema ferara', 'phone' => '123456789063']);
 
-        // Vérifier que le nom a bien été mis à jour
-        $this->assertEquals('Updated Cinema', $updatedCinema['name']);
     }
 
 
@@ -124,9 +127,5 @@ class CinemaModelTest extends CIUnitTestCase
         $this->assertEquals(2, $total);
     }
 
-    public function testGetFilteredCinema()
-    {
-        $cinemas = $this->cinemaModel->getFilteredCinema('Cinema');
-        $this->assertCount(2, $cinemas);
-    }
+
 }

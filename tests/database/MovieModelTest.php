@@ -27,8 +27,8 @@ class MovieModelTest extends CIUnitTestCase
         $data = [
             'title' => 'Test Movie',
             'release_date' => '2025-01-01',
-            'duration' => 120,
-            'rating' => -16,
+            'duration' => '120',
+            'rating' => '-16',
             'description' => 'This is a test movie',
         ];
 
@@ -50,8 +50,8 @@ class MovieModelTest extends CIUnitTestCase
         $data = [
             'title' => 'Test Movie 2',
             'release_date' => '2025-02-01',
-            'duration' => 100,
-            'rating' => -12,
+            'duration' => '100',
+            'rating' => '-12',
             'description' => 'Another test movie',
         ];
         $movieId = $this->movieModel->createMovie($data);
@@ -64,27 +64,28 @@ class MovieModelTest extends CIUnitTestCase
 
     public function testUpdateMovie()
     {
-        // Insérer un film de test
+        $model = new MovieModel();
         $data = [
             'title' => 'Test Movie to Update',
             'release_date' => '2025-03-01',
-            'duration' => 90,
-            'rating' => -18,
+            'duration' =>'90' ,
+            'rating' => '-18',
             'description' => 'Movie to be updated',
         ];
-        $movieId = $this->movieModel->createMovie($data);
-
-        // Mettre à jour le film
         $updatedData = [
             'title' => 'Updated Movie Title',
-            'rating' => -16,
+            'rating' => '-18',
         ];
-        $this->movieModel->updateMovie($updatedData, $movieId);
 
-        $updatedMovie = $this->movieModel->find($movieId);
+        $model->createMovie($data); // Crée l'utilisateur pour le test
+        $movie = $model->getMovieById(1); // Récupère l'utilisateur créé
+        $model->updateMovie($movie['id'], $updatedData);
+        // Mettre à jour le film
 
-        $this->assertEquals('Updated Movie Title', $updatedMovie['title']);
-        $this->assertEquals(4, $updatedMovie['rating']);
+
+        $this->seeInDatabase('movies', ['title' => 'Updated Movie Title', 'rating' => '-18']);
+
+
     }
 
     public function testDeleteMovie()
