@@ -13,7 +13,7 @@ $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName
                     <?php foreach ($movies as $movie): ?>
                         <?php
                         $title = isset($movie['title']) ? $movie['title'] : 'Titre inconnu';
-                        $img_src = !empty($movie['affiche_url']) ? base_url($movie['affiche_url']) : base_url('assets/img/full.jpg');
+                        $img_src = isset($movie['affiche_url']) ? base_url($movie['affiche_url']) : base_url('assets/img/full.jpg');
                         ?>
                         <div class="col-md-3 col-6 mb-3">
                             <div class="card h-100 card-movie">
