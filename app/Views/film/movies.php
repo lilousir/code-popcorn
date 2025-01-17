@@ -21,7 +21,7 @@ $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName
                                 <img src="<?= $img_src ?>" class="card-img-top" alt="<?= esc($title); ?>">
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <a href="<?= base_url('film/' . $slug) ?>"><?= esc($title); ?></a>
+                                        <a href="<?= base_url('film/public' . $slug) ?>"><?= esc($title); ?></a>
                                     </div>
                                 </div>
                             </div>
