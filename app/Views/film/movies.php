@@ -20,8 +20,7 @@ $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName
                                 <img src="<?= $img_src ?>" class="card-img-top" alt="<?= ($title); ?>">
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <a href="<?= base_url('film/' . url_title($movie['slug'], '-', true)) ?>"><?= htmlspecialchars($title); ?></a>
-
+                                        <a href="<?= base_url('film/' . $movie['slug']) ?>"><?= ($title); ?></a>
 
                                     </div>
                                 </div>
