@@ -21,7 +21,6 @@ $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName
                                 <div class="card-body">
                                     <div class="card-title">
                                         <a href="<?= base_url('film/' . $movie['slug']) ?>"><?= ($title); ?></a>
-
                                     </div>
                                 </div>
                             </div>
