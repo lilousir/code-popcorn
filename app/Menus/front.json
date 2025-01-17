@@ -6,7 +6,7 @@
     "subs": {
       "films": {
         "title": "Liste des films",
-        "url": "film/"
+        "url": "/film"
       },
       "seance": {
         "title": "Horaire",
@@ -21,7 +21,7 @@
     "subs": {
       "cinema": {
         "title": "Nos cinéma",
-        "url": "cinema/"
+        "url": "/cinema"
       }
 
     }
