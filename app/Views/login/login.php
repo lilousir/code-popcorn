@@ -69,8 +69,8 @@
 <div class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-1">
-                <a href="<?= base_url(); ?>"><img src="<?= base_url('/assets/brand/logo-bleu.svg'); ?>"></a>
+            <div class="col-md-2">
+                <a href="<?= base_url(); ?>"><img src="<?= base_url('/assets/brand/logo1.PNG'); ?>" style="width: 150px; height: 150px; margin: 15px;" alt="Image"></a>
             </div>
         </div>
         <?php if (isset($error)) { ?>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <button class="btn btn-primary px-4" type="submit">Se connecter</button>
+                                        <button class="btn btn-warning px-4" type="submit">Se connecter</button>
                                     </div>
                                     <div class="col-6 text-end">
                                         <button class="btn btn-link px-0" type="button">Mot de passe oublié ?</button>
@@ -113,7 +113,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card col-md-5 text-white bg-primary py-5">
+                    <div class="card col-md-5 text-white bg-warning py-5">
                         <div class="card-body text-center">
                             <div>
                                 <h2>Rejoignez-nous !</h2>

@@ -4,112 +4,134 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
+// Contrôleur pour gérer les opérations liées aux séances dans la partie admin
 class Showing extends BaseController
 {
+    // Méthode principale pour afficher ou gérer une séance spécifique
+    public function getindex($id = null)
+    {
+        $sm = model('ShowingModel'); // Chargement du modèle ShowingModel
 
-    public function getindex($id = null){
-
-        $sm = model('ShowingModel');
-
-        if ($id == null){
+        // Si aucun ID n'est passé
+        if ($id == null) {
+            // Récupère toutes les séances
             $showing = $sm->findAll();
-
-            return $this->view('admin/showing/index',['showing' => $showing], true);
+            // Affiche la vue listant toutes les séances
+            return $this->view('admin/showing/index', ['showing' => $showing], true);
         } else {
+            // Récupère toutes les séances et tous les films
             $showing = model('ShowingModel')->getAllShowing();
             $movies = model('MovieModel')->getAllMovies();
+            $cinema = model('CinemaModel')->getAlltheater();
 
-            if ($id == "new"){
-                return $this->view('admin/showing/showing', ['showing' => $showing, 'movies'=> $movies], true);
+            // Si l'ID est "new", cela signifie qu'une nouvelle séance doit être créée
+            if ($id == "new") {
+                return $this->view('admin/showing/showing', ['showing' => $showing, 'movies' => $movies, 'cinema' => $cinema], true);
             }
 
+            // Sinon, on récupère la séance correspondant à l'ID
             $showing = $sm->getShowingById($id);
-           if ($showing){
-             return $this->view("/admin/showing/showing", ['showing' => $showing], true);
-           } else {
-               // Si le cinéma avec cet ID n'existe pas, affiche un message d'erreur
-               $this->error("L'ID de la séance n'existe pas");
 
-               // Redirige l'utilisateur vers la liste des cinémas
-               $this->redirect("/admin/showing");
-           }
+            if ($showing) {
+                // Si la séance existe, on charge la vue correspondante
+                return $this->view("/admin/showing/showing", ['showing' => $showing], true);
+            } else {
+                // Si l'ID de la séance est invalide, affiche un message d'erreur
+                $this->error("L'ID de la séance n'existe pas");
+
+                // Redirige vers la liste des séances
+                $this->redirect("/admin/showing");
+            }
         }
-
     }
 
+    // Méthode pour créer une nouvelle séance
     public function postcreate()
     {
-        $data = $this->request->getPost();
-        $sm = Model("ShowingModel");
+        $data = $this->request->getPost(); // Récupère les données POST envoyées par le formulaire
+        $sm = Model("ShowingModel"); // Chargement du modèle ShowingModel
 
-        // Créer l'utilisateur et obtenir son ID
+        // Crée une nouvelle séance et récupère son ID
         $newShowingId = $sm->createShowing($data);
 
-        // Vérifier si la création a réussi
         if ($newShowingId) {
-            $this->success("La séance à bien été ajouté.");
-            $this->redirect("/admin/showing");
+            // Si la création a réussi, affiche un message de succès
+            $this->success("La séance a bien été ajoutée.");
+            $this->redirect("/admin/showing"); // Redirige vers la liste des séances
         } else {
+            // En cas d'échec, récupère les erreurs
             $errors = $sm->errors();
             foreach ($errors as $error) {
                 $this->error($error);
-                $this->redirect("/admin/showing/new");
+                $this->redirect("/admin/showing/new"); // Redirige vers la page de création
             }
-
         }
     }
+
+    // Méthode pour rechercher des séances avec pagination (utilisée avec DataTables)
     public function postSearchShowing()
     {
-        $showingModel = model('App\Models\ShowingModel');
+        $showingModel = model('App\Models\ShowingModel'); // Chargement du modèle ShowingModel
 
-        // Paramètres de pagination et de recherche envoyés par DataTables
-        $draw        = $this->request->getPost('draw');
-        $start       = $this->request->getPost('start');
-        $length      = $this->request->getPost('length');
+        // Récupère les paramètres envoyés par DataTables
+        $draw = $this->request->getPost('draw');
+        $start = $this->request->getPost('start');
+        $length = $this->request->getPost('length');
         $searchValue = $this->request->getPost('search')['value'];
-
-        // Obtenez les informations sur le tri envoyées par DataTables
         $orderColumnIndex = $this->request->getPost('order')[0]['column'] ?? 0;
         $orderDirection = $this->request->getPost('order')[0]['dir'] ?? 'asc';
         $orderColumnName = $this->request->getPost('columns')[$orderColumnIndex]['data'] ?? 'id';
 
-
-        // Obtenez les données triées et filtrées
+        // Récupère les données triées et filtrées
         $data = $showingModel->getPaginatedShowing($start, $length, $searchValue, $orderColumnName, $orderDirection);
 
-        // Obtenez le nombre total de lignes sans filtre
+        // Récupère le total des séances (non filtrées et filtrées)
         $totalRecords = $showingModel->getTotalShowing();
-
-        // Obtenez le nombre total de lignes filtrées pour la recherche
         $filteredRecords = $showingModel->getFilteredShowing($searchValue);
 
-
+        // Prépare le résultat pour DataTables
         $result = [
-            'draw'            => $draw,
-            'recordsTotal'    => $totalRecords,
+            'draw' => $draw,
+            'recordsTotal' => $totalRecords,
             'recordsFiltered' => $filteredRecords,
-            'data'            => $data,
+            'data' => $data,
         ];
+
+        // Retourne le résultat au format JSON
         return $this->response->setJSON($result);
     }
-    public function getdeactivate($id){
-        $sm = Model('ShowingModel');
+
+    // Méthode pour désactiver une séance
+    public function getdeactivate($id)
+    {
+        $sm = Model('ShowingModel'); // Chargement du modèle ShowingModel
+
         if ($sm->deleteShowing($id)) {
-            $this->success("Séance désactivé");
+            // Si la désactivation réussit, affiche un message de succès
+            $this->success("Séance désactivée");
         } else {
-            $this->error("Séance non désactivé");
+            // Sinon, affiche un message d'erreur
+            $this->error("Séance non désactivée");
         }
+
+        // Redirige vers la liste des séances
         $this->redirect('/admin/showing');
     }
 
-    public function getactivate($id){
-        $sm = Model('ShowingModel');
+    // Méthode pour activer une séance
+    public function getactivate($id)
+    {
+        $sm = Model('ShowingModel'); // Chargement du modèle ShowingModel
+
         if ($sm->activateShowing($id)) {
-            $this->success("Séance activé");
+            // Si l'activation réussit, affiche un message de succès
+            $this->success("Séance activée");
         } else {
-            $this->error("Séance non activé");
+            // Sinon, affiche un message d'erreur
+            $this->error("Séance non activée");
         }
+
+        // Redirige vers la liste des séances
         $this->redirect('/admin/showing');
     }
-
 }

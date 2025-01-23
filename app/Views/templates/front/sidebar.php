@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg" style="background-color: #4b5c1d; color: #ffffff;">
+<nav class="navbar fixed-top navbar-expand-lg" style="background-color: #d9d9d9; color: #d6ebff;">
     <div class="container">
         <a class="navbar-brand" href="#"><img src="<?= base_url('/assets/brand/logo1.PNG') ?>" class="sidebar-brand-narrow" _width="32" height="40" alt="Gest-Collect" />Code-PopCorn</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,20 +33,20 @@
                                 <?php } ?>
                             </ul>
                         </li>
-
                     <?php }
                 } ?>
             </ul>
-
         </div>
+        <!-- select du cinema -->
         <form class="theaters-id" method="POST" id="formTheater" action="<?= base_url("cinema/cinema"); ?>">
-            <select class="form-select-sm me-2" name="theater_id" id="theater_id">
-                <option value="">Aucun Cinéma Sélectionné</option>
-                <?php foreach($theaters as $t){ ?>
-                    <option value="<?= $t['id']; ?>" <?= isset($theater) && $theater['id']==$t['id'] ? "selected" : ""; ?>><?= $t['name']; ?></option>
-                <?php } ?>
-            </select>
-        </form>
+           <select class="form-select-sm me-2" name="theater_id" id="theater_id">
+               <option value="">Aucun Cinéma Sélectionné</option>
+               <?php foreach($theaters as $t){ ?>
+                   <option value="<?= $t['id']; ?>" <?= isset($theater) && $theater['id']==$t['id'] ? "selected" : ""; ?>><?= $t['name']; ?></option>
+               <?php } ?>
+           </select>
+         </form>
+        <!-- select du cinema -->
         <select id="search-movie-head" class="form-control me-2" name="title"></select>
         <?php if (isset($user)) { ?>
             <div class="navbar-nav d-flex">
@@ -60,12 +60,9 @@
 
                         <li><a class="dropdown-item" href="<?= base_url('/login/logout');?>"><i class="fa-solid fa-right-from-bracket me-2"></i>Déconnexion</a></li>
 
-
                     </ul>
                 </li>
-
             </div>
-
             <?php } else { ?>
             <div class="navbar-nav d-flex">
                 <li class="nav-item dropdown">
@@ -81,8 +78,6 @@
                     </ul>
                 </li>
             </div>
-
-
         <?php } ?>
     </div>
 </nav>

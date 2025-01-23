@@ -2,15 +2,21 @@
 
 namespace App\Controllers\Admin;
 
+// Importe la classe de base pour les contrôleurs
 use App\Controllers\BaseController;
 
 class Cinema extends BaseController
 {
+    // Indique que l'authentification est requise pour accéder à ce contrôleur
     protected $require_auth = true;
+
+    // Définit les permissions nécessaires pour accéder à ces fonctionnalités
     protected $requiredPermissions = ['administrateur'];
+
+    // Méthode pour gérer la page d'accueil ou afficher les détails d'un cinéma
     public function getIndex($id = null) {
 
-        // Instancie le modèle pour gérer les cinémas.
+        // Instancie le modèle pour gérer les cinémas
         $cm = model("CinemaModel");
 
         // Vérifie si un ID est passé en paramètre
@@ -23,179 +29,179 @@ class Cinema extends BaseController
         } else {
             // Si l'ID est égal à "new", cela signifie qu'un nouveau cinéma doit être créé
             if ($id == "new") {
-                $city = Model("CityModel")->getAllCity();
-                // Ajoute un breadcrumb pour indiquer la création d'un nouveau cinéma
-                return $this->view("admin/cinema/cinema", ['city' => $city],true);
-
+                $city = Model("CityModel")->getAllCity(); // Récupère toutes les villes disponibles
+                // Renvoie la vue pour créer un nouveau cinéma avec la liste des villes
+                return $this->view("admin/cinema/cinema", ['city' => $city], true);
             }
-            // Sinon, on suppose que l'ID correspond à un cinéma existant, récupère ses informations
+
+            // Sinon, récupère les informations d'un cinéma existant par son ID
             $cinema = $cm->getTheatersById($id);
 
             // Vérifie si le cinéma existe
             if ($cinema) {
-                // Ajoute un breadcrumb pour indiquer la modification du cinéma
+                // Ajoute un fil d'Ariane pour la modification
                 $this->addBreadcrumb('Modification de ' . $cinema['name'], '');
                 return $this->view("/admin/cinema/cinema", ["cinema" => $cinema], true);
-
             } else {
-                // Si le cinéma avec cet ID n'existe pas, affiche un message d'erreur
+                // Si le cinéma n'existe pas, affiche une erreur et redirige
                 $this->error("L'ID du cinéma n'existe pas");
-
-                // Redirige l'utilisateur vers la liste des cinémas
                 $this->redirect("/admin/cinema");
             }
         }
     }
 
+    // Méthode pour créer un nouveau cinéma
     public function postcreate() {
-        $data = $this->request->getPost();
-        $cm = Model("CinemaModel");
+        $data = $this->request->getPost(); // Récupère les données POST
+        $cm = Model("CinemaModel"); // Instancie le modèle CinemaModel
 
-        // Créer l'utilisateur et obtenir son ID
+        // Crée le cinéma et retourne son ID
         $newCinemaId = $cm->createCinema($data);
 
-
-        // Vérifier si la création a réussi
+        // Vérifie si la création a réussi
         if ($newCinemaId) {
-            if ($newCinemaId) {
-                // Vérifier si des fichiers ont été soumis dans le formulaire
-                $file = $this->request->getFile('photo_image'); // 'profile_image' est le nom du champ dans le formulaire
-                if ($file && $file->getError() !== UPLOAD_ERR_NO_FILE) {
-                    // Préparer les données du média
-                    $mediaData = [
-                        'entity_type' => 'theater',
-                        'entity_id' => $newCinemaId,   // Utiliser le nouvel ID de l'utilisateur
-                    ];
+            // Vérifie si un fichier image a été soumis
+            $file = $this->request->getFile('photo_url');
 
-                    // Utiliser la fonction upload_file() pour gérer l'upload et les données du média
-                    $uploadResult = upload_file($file, 'theater', $data['name'], $mediaData);
 
-                    // Vérifier le résultat de l'upload
-                    if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
-                        // Afficher un message d'erreur détaillé et rediriger
-                        $this->error("Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message']);
-                        return $this->redirect("/admin/cinema/new");
-                    }
-                }
-                $this->success("Se cinema à bien été ajouté.");
-                $this->redirect("/admin/cinema");
-            } else {
-                $errors = $cm->errors();
-                foreach ($errors as $error) {
-                    $this->error($error);
-                    $this->redirect("/admin/cinema/new");
-                }
 
-            }
-
-        }
-
-    }
-    public function postupdate()
-    {
-        // Récupération des données envoyées via POST
-        $data = $this->request->getPost();
-
-        // Récupération du modèle UserModel
-        $cm = Model("CinemaModel");
-
-        // Mise à jour des informations utilisateur dans la base de données
-        if ($cm->updateCinema($data['id'], $data)) {
-            $file = $this->request->getFile('photo_image'); // 'profile_image' est le nom du champ dans le formulaire
-            // Si un fichier a été soumis
+            // Si un fichier valide est soumis, procède à l'upload
             if ($file && $file->getError() !== UPLOAD_ERR_NO_FILE) {
-                // Récupération du modèle MediaModel
-                $mm = Model('MediaModel');
-                // Récupérer l'ancien média avant l'upload
-                $old_media = $mm->getMediaByEntityIdAndType($data['id'], 'theater');
-
-                // Préparer les données du média pour le nouvel upload
                 $mediaData = [
                     'entity_type' => 'theater',
-                    'entity_id'   => $data['id'],   // Utiliser l'ID de l'utilisateur
+                    'entity_id' => $newCinemaId,
                 ];
 
-                // Utiliser la fonction upload_file() pour gérer l'upload et enregistrer les données du média
-                $uploadResult = upload_file($file, 'photo', $data['name'], $mediaData, true, ['image/jpeg', 'image/png','image/jpg']);
+                // Gère l'upload et associe le média au cinéma
+                $uploadResult = upload_file($file, 'theater', $data['name'], $mediaData);
 
-                // Vérifier le résultat de l'upload
+                // Si une erreur survient lors de l'upload
                 if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
-                    // Afficher un message d'erreur détaillé et rediriger
+                    $this->error("Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message']);
+                    return $this->redirect("/admin/cinema/new");
+                }
+            }
+
+            // Confirme la création et redirige
+            $this->success("Le cinéma a bien été ajouté.");
+            $this->redirect("/admin/cinema");
+        } else {
+            // Si des erreurs sont retournées, les affiche
+            $errors = $cm->errors();
+            foreach ($errors as $error) {
+                $this->error($error);
+            }
+
+            // Redirige vers la page de création
+            return $this->redirect("/admin/cinema/new");
+        }
+    }
+
+    // Méthode pour mettre à jour un cinéma existant
+    public function postupdate() {
+        // Récupère les données POST
+        $data = $this->request->getPost();
+
+        // Instancie le modèle CinemaModel
+        $cm = Model("CinemaModel");
+
+        // Met à jour les informations du cinéma
+        if ($cm->updateCinema($data['id'], $data)) {
+            $file = $this->request->getFile('photo_image'); // Récupère le fichier soumis
+
+            // Si un fichier est soumis
+            if ($file && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                $mm = Model('MediaModel'); // Instancie le modèle MediaModel
+
+                // Récupère l'ancien média avant l'upload
+                $old_media = $mm->getMediaByEntityIdAndType($data['id'], 'theater');
+
+                // Prépare les données pour le nouvel upload
+                $mediaData = [
+                    'entity_type' => 'theater',
+                    'entity_id' => $data['id'],
+                ];
+
+                // Gère l'upload et remplace le média existant
+                $uploadResult = upload_file($file, 'photo', $data['name'], $mediaData, true, ['image/jpeg', 'image/png', 'image/jpg']);
+
+                // Si une erreur survient lors de l'upload
+                if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
                     $this->error("Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message']);
                     return $this->redirect("/admin/cinema");
                 }
 
-                // Si l'upload est un succès, suppression de l'ancien média
+                // Si l'upload est réussi, supprime l'ancien média
                 if ($old_media) {
                     $mm->deleteMedia($old_media[0]['id']);
                 }
             }
 
-            // Si la mise à jour réussit
+            // Confirme la mise à jour
             $this->success("Le cinéma a bien été modifié.");
         } else {
+            // Si des erreurs surviennent
             $errors = $cm->errors();
             foreach ($errors as $error) {
                 $this->error($error);
             }
         }
 
-        // Redirection vers la page des films après le traitement
+        // Redirige vers la liste des cinémas
         return $this->redirect("/admin/cinema");
     }
 
-    public function postSearchCinema()
-    {
+    // Méthode pour rechercher des cinémas avec pagination et tri
+    public function postSearchCinema() {
         $CinemaModel = model('App\Models\CinemaModel');
 
-        // Paramètres de pagination et de recherche envoyés par DataTables
-        $draw        = $this->request->getPost('draw');
-        $start       = $this->request->getPost('start');
-        $length      = $this->request->getPost('length');
+        // Récupère les paramètres de pagination et de recherche
+        $draw = $this->request->getPost('draw');
+        $start = $this->request->getPost('start');
+        $length = $this->request->getPost('length');
         $searchValue = $this->request->getPost('search')['value'];
 
-        // Obtenez les informations sur le tri envoyées par DataTables
+        // Récupère les informations de tri
         $orderColumnIndex = $this->request->getPost('order')[0]['column'] ?? 0;
         $orderDirection = $this->request->getPost('order')[0]['dir'] ?? 'asc';
         $orderColumnName = $this->request->getPost('columns')[$orderColumnIndex]['data'] ?? 'id';
 
-
-        // Obtenez les données triées et filtrées
+        // Récupère les données filtrées et triées
         $data = $CinemaModel->getPaginatedCinema($start, $length, $searchValue, $orderColumnName, $orderDirection);
 
-        // Obtenez le nombre total de lignes sans filtre
+        // Récupère les totaux pour les enregistrements filtrés et non filtrés
         $totalRecords = $CinemaModel->getTotalCinema();
-
-        // Obtenez le nombre total de lignes filtrées pour la recherche
         $filteredRecords = $CinemaModel->getFilteredCinema($searchValue);
 
-
+        // Retourne les résultats au format JSON
         $result = [
-            'draw'            => $draw,
-            'recordsTotal'    => $totalRecords,
+            'draw' => $draw,
+            'recordsTotal' => $totalRecords,
             'recordsFiltered' => $filteredRecords,
-            'data'            => $data,
+            'data' => $data,
         ];
         return $this->response->setJSON($result);
     }
-    public function getautocompletecity(){
-        $searchValue = $this->request->getGet('q'); // Récupère le terme de recherche envoyé par Select2
+
+    // Méthode pour l'autocomplétion des villes
+    public function getautocompletecity() {
+        $searchValue = $this->request->getGet('q'); // Récupère le terme de recherche
 
         $cityModel = Model("CityModel");
 
-        // Appelle la méthode de recherche dans le modèle
+        // Recherche les villes correspondant au terme
         $city = $cityModel->searchCityByName($searchValue);
 
-        // Formatage des résultats pour Select2
+        // Formate les résultats pour l'autocomplétion
         $results = [];
         foreach ($city as $c) {
             $results[] = [
-                'id' => $c['id'],  // Utilise le slug comme ID pour redirection ultérieure
-                'text' => $c['label']." - " .$c['zip_code']// Ce texte sera affiché dans le dropdown de Select2
+                'id' => $c['id'], // ID de la ville
+                'text' => $c['label'] . " - " . $c['zip_code'], // Nom et code postal
             ];
         }
 
-        // Retourne les résultats sous forme JSON pour Select2
+        // Retourne les résultats au format JSON
         return $this->response->setJSON($results);
     }
 }
