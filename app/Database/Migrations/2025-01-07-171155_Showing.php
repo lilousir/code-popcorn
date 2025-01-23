@@ -45,6 +45,14 @@ class Showing extends Migration
             ],
             'deleted_at' => [
                 'type' => 'DATETIME',
+
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
             ]
         ]);
 

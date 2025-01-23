@@ -58,7 +58,7 @@
     <link rel="stylesheet" href="<?= base_url('/css/toastr.min.css') ?>">
 </head>
 <!-- change la couleur du fond -->
-<body style="margin-top:70px; background-color: #2f1b0c;">
+<body style="margin-top:70px; background-color: #b5d199;">
 
 <?php if (isset($menus)) {
     echo view($template_dir . 'sidebar',['menus' => $menus]);  }  ?>

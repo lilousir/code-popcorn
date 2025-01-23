@@ -3,33 +3,33 @@ $router = service('router');
 $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName())));
 ?>
 <div class="row">
-
     <div class="col">
-        <div class="card">
-            <div class="card-header d-flex justify-content-center align-items-center text-center fw-bold fs-3  text-dark">Cinema
-
+        <div class="card" style="background-color: #b5d199">
+            <div class="card-header d-flex justify-content-center align-items-center text-center fw-bold fs-3  text-dark">
+                Cinema
             </div>
-            <div class="card-body">
-                <?php foreach(array_chunk($cinemas, 4) as $chunk) : // Diviser les éléments en groupes de 4 ?>
-                    <div class="row shelf-row px-4 ">
-
-                        <?php foreach($chunk as $cinemas) : ?>
+            <div class="card-body" style="background-color: #b5d199">
+                <?php foreach (array_chunk($cinemas, 4) as $chunk) : // Diviser les éléments en groupes de 4 ?>
+                    <div class="row shelf-row px-4">
+                        <?php foreach ($chunk as $cinema) : // Utiliser $cinema pour le singulier ?>
                             <div class="col mb-3">
-                                <div class="card h-100">
+                                <div class="card h-100" style="background-color: #3dad5b">
                                     <?php
-                                    $img_src = !empty($cinemas['photo_url']) ? base_url($cinemas['photo_url']) : base_url('assets/img/full.jpg');
+                                    // Vérifie si une image existe, sinon prend l'image par défaut
+                                    $photo_url = !empty($cinema['photo_image']) ? base_url('cinema/' . $cinema['photo_image']) : base_url('assets/img/background-pro.jpg');
                                     ?>
-                                    <a href="<?= base_url('cinema/' . $cinemas['id']) ?>">
-                                        <img src="<?= $img_src ?>" class="card-img-top" alt="<?= $cinemas['name']; ?>">
+                                    <a href="<?= base_url('cinema/' . $cinema['id']) ?>">
+                                        <img src="<?= $photo_url ?>" alt="Image de <?= htmlspecialchars($cinema['name'], ENT_QUOTES, 'UTF-8'); ?>" class="card-img-top">
                                     </a>
-                                    <div class="card-body">
-                                        <div class="card-title"><?= $cinemas['name']; ?></div>
+                                    <div class="card-body" style="background-color: #b5b6b7">
+                                        <h5 class="card-title"><?= htmlspecialchars($cinema['name'], ENT_QUOTES, 'UTF-8'); ?></h5>
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     </div>
                 <?php endforeach; ?>
+
                 <div class="row">
                     <div class="col">
                         <div class="pagination justify-content-center">
@@ -41,6 +41,7 @@ $controller = strtolower(basename(str_replace('\\', '/', $router->controllerName
         </div>
     </div>
 </div>
+
 
 
 <style>
