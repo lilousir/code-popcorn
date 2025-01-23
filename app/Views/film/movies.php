@@ -27,9 +27,12 @@
 
                                 <div class="card-body">
                                     <div class="card-title">
+
                                         <!-- Titre du film affiché -->
                                         <h5 class="card-title"><?= htmlspecialchars($movie['title'], ENT_QUOTES, 'UTF-8'); ?></h5>
-                                    </div>
+
+                                       
+                   </div>
                                 </div>
                             </div>
                         </div>
