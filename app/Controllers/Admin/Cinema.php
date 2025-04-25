@@ -51,7 +51,7 @@ class Cinema extends BaseController
         $data = $this->request->getPost();
         $cm = Model("CinemaModel");
 
-        // Créer l'utilisateur et obtenir son ID
+        // Créer cinema et obtenir son ID
         $newCinemaId = $cm->createCinema($data);
 
 
